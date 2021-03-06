@@ -32,7 +32,7 @@ firebase.auth().onAuthStateChanged(async function(user) {
       let groupName = document.querySelector('#groupName').value
       let groupImageUrl = document.querySelector('#image-url').value
       let groupNumberOfPaperclips = 0
-      let docRef = await db.collection('posts').add({ 
+      let docRef = await db.collection('groups').add({ 
         groupname: groupName, 
         imageUrl: groupImageUrl, 
         likes: 0,
@@ -45,7 +45,7 @@ firebase.auth().onAuthStateChanged(async function(user) {
     })
 
     // Render all groups when the page is loaded
-    let querySnapshot = await db.collection('posts').orderBy('created').get()
+    let querySnapshot = await db.collection('groups').orderBy('created').get()
     let groups = querySnapshot.docs
     for (let i=0; i<groups.length; i++) {
       let groupId = groups[i].id
@@ -80,8 +80,8 @@ firebase.auth().onAuthStateChanged(async function(user) {
 })
 
 async function renderGroups(groupId, groupName, groupImageUrl, groupNumberOfPaperclips) {
-  document.querySelector('.posts').insertAdjacentHTML('beforeend', `
-    <div class="post-${groupId} md:mt-16 mt-8 space-y-4">
+  document.querySelector('.groups').insertAdjacentHTML('beforeend', `
+    <div class="groups-${groupId} md:mt-16 mt-8 space-y-4">
       <div class="md:mx-0 mx-4">
         <span class="font-bold text-xl">${groupName}</span>
       </div>
@@ -97,13 +97,13 @@ async function renderGroups(groupId, groupName, groupImageUrl, groupNumberOfPape
     </div>
   `)
 
-  document.querySelector(`.post-${groupId} .like-button`).addEventListener('click', async function(event) {
+  document.querySelector(`.groups-${groupId} .like-button`).addEventListener('click', async function(event) {
     event.preventDefault()
-    console.log(`post ${groupId} like button clicked!`)
-    let existingNumberOfLikes = document.querySelector(`.post-${groupId} .likes`).innerHTML
+    console.log(`groups ${groupId} like button clicked!`)
+    let existingNumberOfLikes = document.querySelector(`.groups-${groupId} .likes`).innerHTML
     let newNumberOfLikes = parseInt(existingNumberOfLikes) + 1
-    document.querySelector(`.post-${groupId} .likes`).innerHTML = newNumberOfLikes
-    await db.collection('posts').doc(groupId).update({
+    document.querySelector(`.groups-${groupId} .likes`).innerHTML = newNumberOfLikes
+    await db.collection('groups').doc(groupId).update({
       likes: firebase.firestore.FieldValue.increment(1)
     })
   })
