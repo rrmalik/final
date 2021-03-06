@@ -1,3 +1,16 @@
+/*
+TO DOs:
+- Reorganize groups so there are 4 per row (using flex?)
+- Add image shadow on left and bottom
+- Update font to Lato?
+- Images should be buttons that link to content pages (using ?q=)
+- Add "back to home" button and logo in top nav menu
+- Move "Create Group" form to seperate page
+*/
+
+
+
+
 let db = firebase.firestore()
 
 // Change main event listener from DOMContentLoaded to 
@@ -23,7 +36,7 @@ firebase.auth().onAuthStateChanged(async function(user) {
     document.querySelector('.sign-out').addEventListener('click', function(event) {
       console.log('sign out clicked')
       firebase.auth().signOut()
-      document.location.href = 'groups.html'
+      document.location.href = 'joingroups.html'
     })
 
     // Listen for the form submit and create/render the new group
@@ -71,7 +84,7 @@ firebase.auth().onAuthStateChanged(async function(user) {
       signInOptions: [
         firebase.auth.EmailAuthProvider.PROVIDER_ID
       ],
-      signInSuccessUrl: 'groups.html'
+      signInSuccessUrl: 'joingroups.html'
     }
 
     // Starts FirebaseUI Auth
@@ -81,18 +94,20 @@ firebase.auth().onAuthStateChanged(async function(user) {
 
 async function renderGroups(groupId, groupName, groupImageUrl, groupNumberOfPaperclips) {
   document.querySelector('.groups').insertAdjacentHTML('beforeend', `
-    <div class="groups-${groupId} md:mt-16 mt-8 space-y-4">
-      <div class="md:mx-0 mx-4">
-        <span class="font-bold text-xl">${groupName}</span>
-      </div>
-  
-      <div>
-        <img src="${groupImageUrl}" class="w-full">
-      </div>
-  
-      <div class="text-3xl md:mx-0 mx-4">
-        <button class="like-button">📎</button>
-        <span class="likes">${groupNumberOfPaperclips}</span>
+    <div class="flex">
+      <div class="groups-${groupId} md:mt-16 mt-8 space-y-4">
+        <div class="md:mx-0 mx-4">
+            <span class="font-bold text-xl">${groupName}</span>
+        </div>
+    
+        <div>
+            <img src="${groupImageUrl}" class="w-full">
+        </div>
+    
+        <div class="text-3xl md:mx-0 mx-4">
+            <button class="like-button">📎</button>
+            <span class="likes">${groupNumberOfPaperclips}</span>
+        </div>
       </div>
     </div>
   `)
