@@ -105,7 +105,7 @@ async function renderGroups(groupId, groupName, groupImageUrl, groupNumberOfPape
         </div>
     
         <div>
-            <img src="${groupImageUrl}" class="w-full">
+            <img src="${groupImageUrl}" class="w-full shadow-2xl">
         </div>
     
         <div class="text-3xl md:mx-0 mx-4">
