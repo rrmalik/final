@@ -23,37 +23,37 @@ firebase.auth().onAuthStateChanged(async function(user) {
     document.querySelector('.sign-out').addEventListener('click', function(event) {
       console.log('sign out clicked')
       firebase.auth().signOut()
-      document.location.href = 'kelloggram.html'
+      document.location.href = 'groups.html'
     })
 
-    // Listen for the form submit and create/render the new post
+    // Listen for the form submit and create/render the new group
     document.querySelector('form').addEventListener('submit', async function(event) {
       event.preventDefault()
-      let paperclipGroupName = document.querySelector('#groupName').value
-      let postImageUrl = document.querySelector('#image-url').value
-      let postNumberOfLikes = 0
+      let groupName = document.querySelector('#groupName').value
+      let groupImageUrl = document.querySelector('#image-url').value
+      let groupNumberOfPaperclips = 0
       let docRef = await db.collection('posts').add({ 
-        groupname: paperclipGroupName, 
-        imageUrl: postImageUrl, 
+        groupname: groupName, 
+        imageUrl: groupImageUrl, 
         likes: 0,
         created: firebase.firestore.FieldValue.serverTimestamp()
       })
-      let postId = docRef.id // the newly created document's ID
+      let groupId = docRef.id // the newly created document's ID
       document.querySelector('#image-url').value = '' // clear the image url field
       document.querySelector('#groupName').value = '' // clear the image url field
-      renderPost(postId, paperclipGroupName, postImageUrl, postNumberOfLikes)
+      renderGroups(groupId, groupName, groupImageUrl, groupNumberOfPaperclips)
     })
 
-    // Render all posts when the page is loaded
+    // Render all groups when the page is loaded
     let querySnapshot = await db.collection('posts').orderBy('created').get()
-    let posts = querySnapshot.docs
-    for (let i=0; i<posts.length; i++) {
-      let postId = posts[i].id
-      let postData = posts[i].data()
-      let paperclipGroupName = postData.groupname
-      let postImageUrl = postData.imageUrl
-      let postNumberOfLikes = postData.likes
-      renderPost(postId, paperclipGroupName, postImageUrl, postNumberOfLikes)
+    let groups = querySnapshot.docs
+    for (let i=0; i<groups.length; i++) {
+      let groupId = groups[i].id
+      let groupData = groups[i].data()
+      let groupName = groupData.groupname
+      let groupImageUrl = groupData.imageUrl
+      let groupNumberOfPaperclips = groupData.likes
+      renderGroups(groupId, groupName, groupImageUrl, groupNumberOfPaperclips)
     }
 
   } else {
@@ -71,7 +71,7 @@ firebase.auth().onAuthStateChanged(async function(user) {
       signInOptions: [
         firebase.auth.EmailAuthProvider.PROVIDER_ID
       ],
-      signInSuccessUrl: 'kelloggram.html'
+      signInSuccessUrl: 'groups.html'
     }
 
     // Starts FirebaseUI Auth
@@ -79,30 +79,31 @@ firebase.auth().onAuthStateChanged(async function(user) {
   }
 })
 
-async function renderPost(postId, paperclipGroupName, postImageUrl, postNumberOfLikes) {
+async function renderGroups(groupId, groupName, groupImageUrl, groupNumberOfPaperclips) {
   document.querySelector('.posts').insertAdjacentHTML('beforeend', `
-    <div class="post-${postId} md:mt-16 mt-8 space-y-4">
+    <div class="post-${groupId} md:mt-16 mt-8 space-y-4">
       <div class="md:mx-0 mx-4">
-        <span class="font-bold text-xl">${paperclipGroupName}</span>
+        <span class="font-bold text-xl">${groupName}</span>
       </div>
   
       <div>
-        <img src="${postImageUrl}" class="w-full">
+        <img src="${groupImageUrl}" class="w-full">
       </div>
   
       <div class="text-3xl md:mx-0 mx-4">
         <button class="like-button">📎</button>
-        <span class="likes">${postNumberOfLikes}</span>
+        <span class="likes">${groupNumberOfPaperclips}</span>
       </div>
     </div>
   `)
-  document.querySelector(`.post-${postId} .like-button`).addEventListener('click', async function(event) {
+
+  document.querySelector(`.post-${groupId} .like-button`).addEventListener('click', async function(event) {
     event.preventDefault()
-    console.log(`post ${postId} like button clicked!`)
-    let existingNumberOfLikes = document.querySelector(`.post-${postId} .likes`).innerHTML
+    console.log(`post ${groupId} like button clicked!`)
+    let existingNumberOfLikes = document.querySelector(`.post-${groupId} .likes`).innerHTML
     let newNumberOfLikes = parseInt(existingNumberOfLikes) + 1
-    document.querySelector(`.post-${postId} .likes`).innerHTML = newNumberOfLikes
-    await db.collection('posts').doc(postId).update({
+    document.querySelector(`.post-${groupId} .likes`).innerHTML = newNumberOfLikes
+    await db.collection('posts').doc(groupId).update({
       likes: firebase.firestore.FieldValue.increment(1)
     })
   })
