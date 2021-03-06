@@ -1,14 +1,18 @@
 /*
 TO DOs:
+UI:
 - Reorganize groups so there are 4 per row (using flex?)
 - Add image shadow on left and bottom
 - Update font to Lato?
-- Images should be buttons that link to content pages (using ?q=)
+UX:
 - Add "back to home" button and logo in top nav menu
-- Move "Create Group" form to seperate page
+- Move "Create Group" form to separate page
+- Have images be programmatically populated? Create inventory of images in Firebase?
+- Images should be buttons that link to content pages (using ?q=)
+- Decide if we want to do anything with the "likes" functionality or just remove
+Back End: 
+- Create API intermediatary to write/read from Firebase
 */
-
-
 
 
 let db = firebase.firestore()
