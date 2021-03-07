@@ -116,6 +116,8 @@ async function renderGroups(groupId, groupName, groupImageUrl, groupNumberOfPape
     </div>
   `)
 
+// test test test
+
   document.querySelector(`.groups-${groupId} .like-button`).addEventListener('click', async function(event) {
     event.preventDefault()
     console.log(`groups ${groupId} like button clicked!`)
