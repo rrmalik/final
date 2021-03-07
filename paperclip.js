@@ -57,7 +57,7 @@ firebase.auth().onAuthStateChanged(async function(user) {
       })
       let groupId = docRef.id // the newly created document's ID
       document.querySelector('#image-url').value = '' // clear the image url field
-      document.querySelector('#groupName').value = '' // clear the image url field
+      document.querySelector('#groupName').value = '' // clear the group name field
       renderGroups(groupId, groupName, groupImageUrl, groupNumberOfPaperclips)
     })
 
@@ -73,7 +73,15 @@ firebase.auth().onAuthStateChanged(async function(user) {
       renderGroups(groupId, groupName, groupImageUrl, groupNumberOfPaperclips)
     }
 
-    // Select random image from firebase for group avatar
+    // Grab all images in firebase for group avatars
+    let imageSnapshot = await db.collection('images').get()
+    let images = imageSnapshot.docs
+    for (let i=0; i<images.length; i++) {
+      let imageId = images[i].id
+      let imageData = images[i].data()
+      let imageImageUrl = imageData.imageURL
+      console.log(imageImageUrl)
+    }
 
   } else {
     // Signed out
