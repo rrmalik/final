@@ -54,7 +54,7 @@ firebase.auth().onAuthStateChanged(async function(user) {
     document.querySelector('form').addEventListener('submit', async function(event) {
       event.preventDefault()
       let groupName = document.querySelector('#groupName').value
-      let groupImageUrl = document.querySelector('#image-url').value
+    //   let groupImageUrl = document.querySelector('#image-url').value
       let groupNumberOfPaperclips = 0
          // Grab random image from firebase to assign to group avatar
             let imageSnapshot = await db.collection('images').get()
