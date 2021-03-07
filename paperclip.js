@@ -43,21 +43,34 @@ firebase.auth().onAuthStateChanged(async function(user) {
       document.location.href = 'joingroups.html'
     })
 
+    // Random integer function
+    function getRandomInt(min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
     // Listen for the form submit and create/render the new group
     document.querySelector('form').addEventListener('submit', async function(event) {
       event.preventDefault()
       let groupName = document.querySelector('#groupName').value
       let groupImageUrl = document.querySelector('#image-url').value
       let groupNumberOfPaperclips = 0
+         // Grab random image from firebase to assign to group avatar
+            let imageSnapshot = await db.collection('images').get()
+            let images = imageSnapshot.docs
+            let imageData = images[getRandomInt(0,images.length)].data()
+            let imageImageUrl = imageData.imageURL
+            console.log(imageImageUrl)
       let docRef = await db.collection('groups').add({ 
         groupname: groupName, 
-        imageUrl: groupImageUrl, 
+        imageUrl: imageImageUrl, 
         likes: 0,
         created: firebase.firestore.FieldValue.serverTimestamp()
       })
       let groupId = docRef.id // the newly created document's ID
       document.querySelector('#image-url').value = '' // clear the image url field
-      document.querySelector('#groupName').value = '' // clear the image url field
+      document.querySelector('#groupName').value = '' // clear the group name field
       renderGroups(groupId, groupName, groupImageUrl, groupNumberOfPaperclips)
     })
 
@@ -72,8 +85,6 @@ firebase.auth().onAuthStateChanged(async function(user) {
       let groupNumberOfPaperclips = groupData.likes
       renderGroups(groupId, groupName, groupImageUrl, groupNumberOfPaperclips)
     }
-
-    // Select random image from firebase for group avatar
 
   } else {
     // Signed out
