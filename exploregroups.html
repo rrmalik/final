@@ -10,10 +10,18 @@
 </head>
 
 <body>
+  <div class="flex w-full">
+    <div class="w-1/3 text-left ml-5 pt-2 font-bold text-1xl"><a href="index.html">Paperclip 📎 </a> </div> 
+    <div class="w-1/3 text-right pt-2 font-light text-1xl"></div> 
+    <div class="border-2 border-gray-600 rounded-lg px-4 w-1/8 align-right text-right mr-2 font-normal text-1xl"><a href="howitworks.html">sign out </a> </div> 
+    <div class="border-2 border-gray-600 rounded-lg px-4 w-1/8 text-center font-normal text-1xl"><a href="homepage.html">back to home </a> </div>  
+    <!-- note to self to replace href above and figure out how to right align-->
+  </div>
+
   <div class="py-8 md:px-32 px-0 md:w-1/2 w-full mx-auto">
     
     <div class="flex items-center">
-      <div class="md:mx-0 mx-4"><span class="font-bold text-5xl">join a group</span></div>
+      <div class="md:mx-0 mx-4"><span class="font-bold text-5xl">explore groups</span></div>
       <div class="ml-auto text-sm sign-in-or-sign-out"></div>
     </div>
 
@@ -26,7 +34,7 @@
       </form>
     </div>
 
-    <div class="groups grid grid-cols-3 gap-4">
+    <div class="groups grid grid-cols-3 gap-16">
       <!-- Groups rendered from JavaScript -->
     </div>
   </div>
