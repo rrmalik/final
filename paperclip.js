@@ -59,8 +59,8 @@ firebase.auth().onAuthStateChanged(async function(user) {
          // Grab random image from firebase to assign to group avatar
             let imageSnapshot = await db.collection('images').get()
             let images = imageSnapshot.docs
-            let imageData = images[getRandomInt(0,images.length)].data()
-            let imageImageUrl = imageData.imageURL
+            imageData = images[getRandomInt(0,images.length)].data()
+            imageImageUrl = imageData.imageURL
             console.log(imageImageUrl)
       let docRef = await db.collection('groups').add({ 
         groupname: groupName, 
@@ -71,7 +71,7 @@ firebase.auth().onAuthStateChanged(async function(user) {
       let groupId = docRef.id // the newly created document's ID
       document.querySelector('#image-url').value = '' // clear the image url field
       document.querySelector('#groupName').value = '' // clear the group name field
-      renderGroups(groupId, groupName, groupImageUrl, groupNumberOfPaperclips)
+      renderGroups(groupId, groupName, imageImageUrl, groupNumberOfPaperclips)
     })
 
     // Render all groups when the page is loaded
