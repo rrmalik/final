@@ -100,25 +100,24 @@ firebase.auth().onAuthStateChanged(async function(user) {
 
 async function renderGroups(groupId, groupName, groupImageUrl, groupNumberOfPaperclips) {
   document.querySelector('.groups').insertAdjacentHTML('beforeend', `
-    <div class="flex">
-      <div class="groups-${groupId} md:mt-16 mt-8 space-y-4">
-        <div class="md:mx-0 mx-4">
-            <span class="font-bold text-xl">${groupName}</span>
-        </div>
-    
-        <div>
-            <img src="${groupImageUrl}" class="w-full shadow-2xl">
-        </div>
-    
-        <div class="text-3xl md:mx-0 mx-4">
-            <button class="like-button">📎</button>
-            <span class="likes">${groupNumberOfPaperclips}</span>
+      <div class="px-1">
+        <div class="groups-${groupId} md:mt-16 mt-8 space-y-4">
+          <div class="md:mx-0 mx-4">
+              <span class="font-bold text-xl">${groupName}</span>
+          </div>
+      
+          <div>
+              <img src="${groupImageUrl}" class="w-full shadow-2xl">
+          </div>
+      
+          <div class="text-3xl md:mx-0 mx-4">
+              <button class="like-button">📎</button>
+              <span class="likes">${groupNumberOfPaperclips}</span>
+          </div>
         </div>
       </div>
-    </div>
+    
   `)
-
-// test test test
 
   document.querySelector(`.groups-${groupId} .like-button`).addEventListener('click', async function(event) {
     event.preventDefault()
