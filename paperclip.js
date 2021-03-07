@@ -73,6 +73,8 @@ firebase.auth().onAuthStateChanged(async function(user) {
       renderGroups(groupId, groupName, groupImageUrl, groupNumberOfPaperclips)
     }
 
+    // Select random image from firebase for group avatar
+
   } else {
     // Signed out
     console.log('signed out')
