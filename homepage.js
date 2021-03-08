@@ -19,11 +19,14 @@ firebase.auth().onAuthStateChanged(async function(user) {
     let userId = user.uid
 
     console.log(`${userName} signed in`)
-
+    
     splitUserName = userName.split(' ')
     firstName = splitUserName[0]
     console.log(firstName)
     
+    document.querySelector('.introduction').insertAdjacentHTML('beforeend', `
+    <h1 class="text-6xl text-left pl-32"> <strong> hey, raman 👋  </strong> </h1>
+        `)
 
     // // Sign-out button orig
     // document.querySelector('.sign-in-or-sign-out').innerHTML = `
@@ -44,36 +47,6 @@ firebase.auth().onAuthStateChanged(async function(user) {
       firebase.auth().signOut()
       document.location.href = 'index.html'
     })
-
-    // Random integer function
-    function getRandomInt(min, max) {
-        min = Math.ceil(min);
-        max = Math.floor(max);
-        return Math.floor(Math.random() * (max - min + 1)) + min;
-    }
-
-    // Listen for the form submit and create/render the new group
-    document.querySelector('form').addEventListener('submit', async function(event) {
-      event.preventDefault()
-      let groupName = document.querySelector('#groupName').value
-      let groupNumberOfPaperclips = 0
-         // Grab random image from firebase to assign to group avatar
-            let imageSnapshot = await db.collection('images').get()
-            let images = imageSnapshot.docs
-            imageData = images[getRandomInt(0,images.length)].data()
-            imageImageUrl = imageData.imageURL
-            console.log(imageImageUrl)
-      let docRef = await db.collection('groups').add({ 
-        groupname: groupName, 
-        imageUrl: imageImageUrl, 
-        likes: 0,
-        created: firebase.firestore.FieldValue.serverTimestamp()
-      })
-      let groupId = docRef.id // the newly created document's ID
-      document.querySelector('#groupName').value = '' // clear the group name field
-    //   renderGroups(groupId, groupName, imageImageUrl, groupNumberOfPaperclips)
-    })
-
 
   } else {
     // Signed out
