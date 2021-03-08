@@ -31,16 +31,29 @@ firebase.auth().onAuthStateChanged(async function(user) {
       email: user.email
     })
 
-    console.log('signed in')
+    let userName = user.displayName
+    let userId = user.uid
 
-    // Sign-out button
-    document.querySelector('.sign-in-or-sign-out').innerHTML = `
-      <button class="text-pink-500 underline sign-out">Sign Out</button>
+    console.log(`${userName} signed in`)
+
+    // // Sign-out button orig
+    // document.querySelector('.sign-in-or-sign-out').innerHTML = `
+    //   <button class="text-pink-500 underline sign-out">Sign Out</button>
+    // `
+    // document.querySelector('.sign-out').addEventListener('click', function(event) {
+    //   console.log('sign out clicked')
+    //   firebase.auth().signOut()
+    //   document.location.href = 'index.html'
+    // })
+
+    // Sign-out button new
+    document.querySelector('.sign-out').innerHTML = `
+      <button class="">sign out</button>
     `
     document.querySelector('.sign-out').addEventListener('click', function(event) {
       console.log('sign out clicked')
       firebase.auth().signOut()
-      document.location.href = 'joingroups.html'
+      document.location.href = 'index.html'
     })
 
     // Random integer function
@@ -101,7 +114,7 @@ firebase.auth().onAuthStateChanged(async function(user) {
       signInOptions: [
         firebase.auth.EmailAuthProvider.PROVIDER_ID
       ],
-      signInSuccessUrl: 'joingroups.html'
+      signInSuccessUrl: 'exploregroups.html'
     }
 
     // Starts FirebaseUI Auth
