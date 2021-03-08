@@ -143,6 +143,14 @@ async function renderGroups(groupId, groupName, groupImageUrl, groupNumberOfPape
     
   `)
 
+  //Clicking on a rendered Group sends user to Review Content page
+  document.querySelector(`.groups-${groupId}`).addEventListener('click', async function(event) {
+    event.preventDefault()
+    console.log(`You clicked ${groupId}`)
+    document.location.href = 'reviewcontent.html'
+  })
+
+
   document.querySelector(`.groups-${groupId} .like-button`).addEventListener('click', async function(event) {
     event.preventDefault()
     console.log(`groups ${groupId} like button clicked!`)
