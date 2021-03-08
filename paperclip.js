@@ -35,6 +35,14 @@ firebase.auth().onAuthStateChanged(async function(user) {
     let userId = user.uid
 
     console.log(`${userName} signed in`)
+    
+    splitUserName = userName.split(' ')
+    firstName = splitUserName[0]
+    console.log(firstName)
+    
+    document.querySelector('.introduction').insertAdjacentHTML('beforeend', `
+    <h1 class="text-6xl text-left pl-32"> <strong> hey, raman 👋  </strong> </h1>
+        `)
 
     // // Sign-out button orig
     // document.querySelector('.sign-in-or-sign-out').innerHTML = `
@@ -67,7 +75,6 @@ firebase.auth().onAuthStateChanged(async function(user) {
     document.querySelector('form').addEventListener('submit', async function(event) {
       event.preventDefault()
       let groupName = document.querySelector('#groupName').value
-    //   let groupImageUrl = document.querySelector('#image-url').value
       let groupNumberOfPaperclips = 0
          // Grab random image from firebase to assign to group avatar
             let imageSnapshot = await db.collection('images').get()
@@ -82,7 +89,6 @@ firebase.auth().onAuthStateChanged(async function(user) {
         created: firebase.firestore.FieldValue.serverTimestamp()
       })
       let groupId = docRef.id // the newly created document's ID
-      document.querySelector('#image-url').value = '' // clear the image url field
       document.querySelector('#groupName').value = '' // clear the group name field
       renderGroups(groupId, groupName, imageImageUrl, groupNumberOfPaperclips)
     })
@@ -116,7 +122,6 @@ firebase.auth().onAuthStateChanged(async function(user) {
       ],
       signInSuccessUrl: 'exploregroups.html'
     }
-
     // Starts FirebaseUI Auth
     ui.start('.sign-in-or-sign-out', authUIConfig)
   }

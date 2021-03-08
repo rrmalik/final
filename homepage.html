@@ -12,18 +12,17 @@
     <div class="flex w-full">
       <div class="w-1/3 text-left ml-5 pt-2 font-bold text-1xl"><a href="index.html">Paperclip 📎 </a> </div> 
       <div class="w-1/3 text-right pt-2 font-light text-1xl"></div> 
-      <div class="border-2 border-gray-600 rounded-lg px-4 w-1/8 text-center pt-2 font-bold text-1xl"><a href="howitworks.html">sign out </a> </div> 
+      <div class="sign-out border-2 border-gray-600 rounded-lg px-4 w-1/8 text-center pt-2 font-bold text-1xl"><a href="howitworks.html">sign out </a> </div> 
       <!-- note to self to replace href above and figure out how to right align-->
     </div>
     <br><br><br><br>
-    <h1 class="text-6xl text-left pl-32"> <strong> hey, raman 👋  </strong> </h1>
-    <!-- / need to make name dynamic  -->
+    <div class = "introduction"> </div>
     <br>
     <!-- <br> -->
     <!-- <div class="container mx-auto items-center"> -->
         <div class="flex pl-32 space-x-4">
-            <button class="border-2 border-gray-600 w-1/8 p-0.5 rounded-lg px-4 py-2 text-center font-dark text-1xl"><a href="exploregroups.html"> explore group </a> </button> <br>
-            <button class="border-2 border-gray-600 w-1/8 p-0.5 rounded-lg px-4 py-2 text-center font-dark text-1xl"><a href="creategroup.html"> create group </a> </button> <br>
+            <button class="border-2 border-gray-600 w-1/8 p-0.5 rounded-lg px-4 py-2 text-center font-dark text-1xl"><a href="exploregroups.html"> explore groups </a> </button> <br>
+            <button class="border-2 border-gray-600 w-1/8 p-0.5 rounded-lg px-4 py-2 text-center font-dark text-1xl"><a href="creategroup.html"> create a group </a> </button> <br>
             <button class="border-2 border-gray-600 w-1/8 p-0.5 rounded-lg px-4 py-2 text-center font-dark text-1xl"><a href="addcontent.html"> add content </a> </button> <br>
         </div>  
     </div>    
@@ -44,6 +43,40 @@
         <img src="work.png"> </div>
       </div>
 
+    <div class="userGroups grid grid-cols-3 gap-16">
+        <!-- Groups rendered from JavaScript -->
+      </div>
+    </div>
+
+
+
+  <!-- Put the Firebase config here -->
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/8.2.7/firebase-app.js"></script>
+
+  <!-- TODO: Add SDKs for Firebase products that you want to use
+      https://firebase.google.com/docs/web/setup#available-libraries -->
+  <script src="https://www.gstatic.com/firebasejs/8.2.7/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.2.7/firebase-auth.js"></script>
+
+  <!-- FirebaseUI Auth -->
+  <!-- https://firebaseopensource.com/projects/firebase/firebaseui-web/ -->
+  <script src="https://www.gstatic.com/firebasejs/ui/4.7.3/firebase-ui-auth.js"></script>
+
+  <script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+    apiKey: "AIzaSyAifIXtUqXHGO6I1PCQrNR_f4fAmlx2kCU",
+    authDomain: "paperclip---kiei451.firebaseapp.com",
+    projectId: "paperclip---kiei451",
+    storageBucket: "paperclip---kiei451.appspot.com",
+    messagingSenderId: "601420250611",
+    appId: "1:601420250611:web:daa06d99774bd5c1c4e686"
+  };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+  </script>
+  <script src="paperclip.js"></script>
 </body>
 
 </html>
