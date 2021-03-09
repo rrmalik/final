@@ -5,56 +5,68 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet" type="text/css">
-  <title>Paperclip 📎 - Add Content </title>
+  <title>paperclip 📎 </title>
 </head>
 
 <body style="background-color:f8f8f8;">
   <body>
     <div class="md:flex justify-left space-x-2 md:space-y-0 space-y-3 my-4">
-      <div class="w-3/4 text-left pl-8 pt-2 font-bold text-2xl"><a href="index.html">paperclip 📎 </a> </div> 
+      <div class="w-3/4 text-left pl-8 pt-2 font-bold text-2xl"><a href="home.html">paperclip 📎 </a> </div> 
       <div class="w-1/8 text-right pt-2 font-light text-1xl"></div> 
       <div class="sign-out w-1/8 text-center inline-block border-2 border-black text-black-800 rounded-lg px-4 py-2 hover:bg-black hover:text-white">sign out</a> </div> 
-      <div class="back-to-home w-1/8 text-center inline-block border-2 border-black text-black-800 rounded-lg px-4 py-2 hover:bg-black hover:text-white"><a href="homepage.html">back to home </a> </div>  
+      <div class="back-to-home w-1/8 text-center inline-block border-2 border-black text-black-800 rounded-lg px-4 py-2 hover:bg-black hover:text-white"><a href="home.html">back to home </a> </div>  
     </div>
-    <br><br>
-    <h1 class="text-6xl text-left pl-32"> <strong> add new content </strong> </h1>
+    <br>
 
-<br>
+    <div class="py-8 md:px-32 px-0 w-full mx-auto">
+    
+      <div class="items-center">
+        <div class="md:mx-0 mx-4"><span class="font-bold text-6xl">add content</span></div>
+      </div>
+  
+      <!-- New post form -->
+      <div>
+        <form class="w-full mt-8">
+          <input type="text" id="destinationGroup" name="destinationGroup" placeholder="destination group" class="my-2 p-2 w-64 border-b border-black-400 rounded shadow-xl focus:outline-none focus:ring-purple-500 focus:border-purple-500"> <br>
+          <input type="text" id="type" name="type" placeholder="content type" class="my-2 p-2 w-64 border-b border-black-400 rounded shadow-xl focus:outline-none focus:ring-purple-500 focus:border-purple-500"> <br>
+          <input type="text" id="url" name="url" placeholder="url" class="my-2 p-2 w-64 border-b border-black-400 rounded shadow-xl focus:outline-none focus:ring-purple-500 focus:border-purple-500"> <br>
+          <input type="text" id="title" name="title" placeholder="title" class="my-2 p-2 w-64 border-b border-black-400 rounded shadow-xl focus:outline-none focus:ring-purple-500 focus:border-purple-500"> <br>
+          <input type="text" id="category" name="category" placeholder="category" class="my-2 p-2 w-64 border-b border-black-400 rounded shadow-xl focus:outline-none focus:ring-purple-500 focus:border-purple-500"> <br>
+          <input type="text" id="time" name="time" placeholder="time to consume" class="my-2 p-2 w-64 border-b border-black-400 rounded shadow-xl focus:outline-none focus:ring-purple-500 focus:border-purple-500"> <br>
+          <input type="text" id="commentary" name="commentary" placeholder="commentary" class="my-2 p-2 w-64 border-b border-black-400 rounded shadow-xl focus:outline-none focus:ring-purple-500 focus:border-purple-500"> <br>
+          <div><button class="bg-green-400 hover:bg-green-500 text-white px-4 py-2 rounded-xl">Add Content</button></div>
+        </form>
+      </div>
 
-<h2 class="pl-32 w-1/8 rounded-lg text-left font-dark font-thin text-3xl "> 🛩  destination group </h2>
+    </div>
 
-<br>
-<hr pl-32 size="8" width="60%" align="center" color="black">
+<!-- Put the Firebase config here -->
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/8.2.7/firebase-app.js"></script>
 
-<h2 class="pl-32 w-1/8 rounded-lg text-left font-dark font-thin text-3xl "> ⚫️  content type </h2>
+  <!-- TODO: Add SDKs for Firebase products that you want to use
+      https://firebase.google.com/docs/web/setup#available-libraries -->
+  <script src="https://www.gstatic.com/firebasejs/8.2.7/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.2.7/firebase-auth.js"></script>
 
-<br>
-<hr pl-32 size="8" width="60%" align="center" color="black">
+  <!-- FirebaseUI Auth -->
+  <!-- https://firebaseopensource.com/projects/firebase/firebaseui-web/ -->
+  <script src="https://www.gstatic.com/firebasejs/ui/4.7.3/firebase-ui-auth.js"></script>
 
-<h2 class="pl-32 w-1/8 rounded-lg text-left font-dark font-thin text-3xl "> 🔗  url </h2>
+  <script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+    apiKey: "AIzaSyAifIXtUqXHGO6I1PCQrNR_f4fAmlx2kCU",
+    authDomain: "paperclip---kiei451.firebaseapp.com",
+    projectId: "paperclip---kiei451",
+    storageBucket: "paperclip---kiei451.appspot.com",
+    messagingSenderId: "601420250611",
+    appId: "1:601420250611:web:daa06d99774bd5c1c4e686"
+  };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+  </script>
+  <script src="addcontent.js"></script>
 
-<br>
-<hr pl-32 size="8" width="60%" align="center" color="black">
-
-<h2 class="pl-32 w-1/8 rounded-lg text-left font-dark font-thin text-3xl "> ✏️ title </h2>
-
-<br>
-<hr pl-32 size="8" width="60%" align="center" color="black">
-<h2 class="pl-32 w-1/8 rounded-lg text-left font-dark font-thin text-3xl "> 🗄️  category </h2>
-
-<br>
-<hr pl-32 size="8" width="60%" align="center" color="black">
-<h2 class="pl-32 w-1/8 rounded-lg text-left font-dark font-thin text-3xl "> ⌚️  time to consume </h2>
-
-<br>
-<hr pl-32 size="8" width="60%" align="center" color="black">
-<h2 class="pl-32 w-1/8 rounded-lg text-left font-dark font-thin text-3xl "> 🔍  commentary, summary, or preview snippet </h2>
-
-<br>
-
-<br>
-<div class="flex w-full align-left pl-32">
-  <div class="border-2 border-gray-600 rounded-lg px-8 py-1 w-1/8 text-center font-normal text-1xl"><a href="homepage.html"> submit </a> </div>  
-  <!-- note to self to replace href above to talk to Firestore -->
-
-</div>
+</body>
+</html>
