@@ -23,7 +23,7 @@ firebase.auth().onAuthStateChanged(async function(user) {
     firstName = splitUserName[0]
     console.log(firstName)
 
-    document.location.href = 'homepage.html'
+    document.location.href = 'home.html'
 
     // // Sign-up button new
     // document.querySelector('.sign-up').innerHTML = `
@@ -39,15 +39,16 @@ firebase.auth().onAuthStateChanged(async function(user) {
     // Signed out
     console.log('signed out')
 
-    // Hide the form when signed-out
-    // document.querySelector('form').classList.add('hidden')
-
     // Log-in button new
     document.querySelector('.log-in').innerHTML = `
     <button class=""> log in </button>
     `
     document.querySelector('.log-in').addEventListener('click', function(event) {
         console.log('log in clicked')  
+
+    // Hide the sign up and log in buttons
+    document.querySelector('.sign-up').classList.add('hidden')
+    document.querySelector('.log-in').classList.add('hidden')
       // Initializes FirebaseUI Auth
       let ui = new firebaseui.auth.AuthUI(firebase.auth())
   
@@ -56,7 +57,7 @@ firebase.auth().onAuthStateChanged(async function(user) {
         signInOptions: [
           firebase.auth.EmailAuthProvider.PROVIDER_ID
         ],
-        signInSuccessUrl: 'homepage.html'
+        signInSuccessUrl: 'home.html'
       }
       // Starts FirebaseUI Auth
       ui.start('.sign-in-or-sign-out', authUIConfig)
@@ -71,6 +72,10 @@ firebase.auth().onAuthStateChanged(async function(user) {
     //   firebase.auth().signOut()
     //   document.location.href = 'index.html'
 
+    // Hide the sign up and log in buttons
+    document.querySelector('.sign-up').classList.add('hidden')
+    document.querySelector('.log-in').classList.add('hidden')
+
     // Initializes FirebaseUI Auth
     let ui = new firebaseui.auth.AuthUI(firebase.auth())
 
@@ -79,7 +84,7 @@ firebase.auth().onAuthStateChanged(async function(user) {
       signInOptions: [
         firebase.auth.EmailAuthProvider.PROVIDER_ID
       ],
-      signInSuccessUrl: 'homepage.html'
+      signInSuccessUrl: 'home.html'
     }
     // Starts FirebaseUI Auth
     ui.start('.sign-in-or-sign-out', authUIConfig)

@@ -10,8 +10,9 @@
 
   <style>
     .sign-in-or-sign-out form {
-      border-color: purple;
-      border-width: 2px;
+      border-color: black;
+      border-width: 4px;
+      align-items: left;
     }
   </style>
 
@@ -34,7 +35,10 @@
       <div class="log-in text-center inline-block border-2 border-black text-black-800 rounded-lg px-4 py-2 hover:bg-black hover:text-white">log in</div>
       <div class="sign-up text-center inline-block border-2 border-black text-black-800 rounded-lg px-4 py-2 hover:bg-black hover:text-white">sign up</div>
     </div>
-    <div class="sign-in-or-sign-out"></div>
+    <div class="md:flex justify-left space-x-2 md:space-y-0 space-y-3 pl-8 pt-4">
+      <div class="sign-in-or-sign-out w-1/4"></div>
+      <div class="w-3/4"></div>
+    </div>
 
 
   <!-- Put the Firebase config here -->

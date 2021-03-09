@@ -49,6 +49,7 @@ firebase.auth().onAuthStateChanged(async function(user) {
       renderUserGroups(groupId, groupName, groupImageUrl)
     }
 
+
   } else {
     // Signed out
     console.log('signed out')
@@ -87,4 +88,12 @@ async function renderUserGroups(groupId, groupName, groupImageUrl, groupNumberOf
         </div>
       
     `)
+
+   // Clicking on a rendered Group sends user to Review Content page
+   document.querySelector(`.groups-${groupId}`).addEventListener('click', async function(event) {
+    event.preventDefault()
+    console.log(`You clicked ${groupId}`)
+    document.location.href = 'reviewcontent.html'
+  })
+
 }
