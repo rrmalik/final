@@ -20,24 +20,18 @@
     <!-- <br> -->
     <!-- <div class="container mx-auto items-center"> -->
         <div class="flex pl-32 space-x-4">
-            <button class="border-2 border-gray-600 w-1/8 p-0.5 rounded-lg px-4 py-2 text-center font-dark text-1xl"><a href="exploregroups.html"> explore groups </a> </button> <br>
-            <button class="border-2 border-gray-600 w-1/8 p-0.5 rounded-lg px-4 py-2 text-center font-dark text-1xl"><a href="creategroup.html"> create a group </a> </button> <br>
-            <button class="border-2 border-gray-600 w-1/8 p-0.5 rounded-lg px-4 py-2 text-center font-dark text-1xl"><a href="addcontent.html"> add content </a> </button> <br>
+            <button class="text-center inline-block border-2 border-black text-black-800 rounded-lg px-4 py-2 hover:bg-black hover:text-white"><a href="exploregroups.html"> explore groups </a> </button> <br>
+            <button class="text-center inline-block border-2 border-black text-black-800 rounded-lg px-4 py-2 hover:bg-black hover:text-white"><a href="creategroup.html"> create a group </a> </button> <br>
+            <button class="text-center inline-block border-2 border-black text-black-800 rounded-lg px-4 py-2 hover:bg-black hover:text-white"><a href="addcontent.html"> add content </a> </button> <br>
         </div>  
     </div>    
-<!-- / note to self need to figure out how to center buttons if that's how we want it to look-->
 
-        <br>
-      <br>
-      <br>
-
-    <h1 class="text-4xl text-left pl-32"> <strong> your groups: </strong> </h1>
-
-    <div class="userGroups grid grid-cols-3 gap-16">
-        <!-- Groups rendered from JavaScript -->
-      </div>
+  <div class="py-8 md:px-32 px-0 w-full mx-auto">
+  
+    <div class="userGroups grid grid-cols-4 gap-12">
+      <!-- User's groups are rendered from JavaScript -->
     </div>
-
+  </div>
 
 
   <!-- Put the Firebase config here -->
@@ -66,7 +60,7 @@
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
   </script>
-  <script src="homepage.js"></script>
+  <script src="home.js"></script>
 </body>
 
 </html>
