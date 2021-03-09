@@ -19,10 +19,11 @@ firebase.auth().onAuthStateChanged(async function(user) {
     let userId = user.uid
 
     console.log(`${userName} signed in`)
-
+    
     splitUserName = userName.split(' ')
     firstName = splitUserName[0]
     console.log(firstName)
+    
 
     // Sign-out button new
     document.querySelector('.sign-out').innerHTML = `
@@ -34,42 +35,33 @@ firebase.auth().onAuthStateChanged(async function(user) {
       document.location.href = 'index.html'
     })
 
-    // Random integer function
-    function getRandomInt(min, max) {
-        min = Math.ceil(min);
-        max = Math.floor(max);
-        return Math.floor(Math.random() * (max - min + 1)) + min;
-    }
+    // Join-Group button 
+        document.querySelector('.join-group').innerHTML = `
+        <button class="">join group</button>
+      `
+      document.querySelector('.join-group').addEventListener('click', function(event) {
+        console.log('join group clicked')
 
-    // Listen for the form submit and create/render the new group
-    document.querySelector('form').addEventListener('submit', async function(event) {
-      event.preventDefault()
-      let groupName = document.querySelector('#groupName').value
-      let groupNumberOfPaperclips = 0
-         // Grab random image from firebase to assign to group avatar
-            let imageSnapshot = await db.collection('images').get()
-            let images = imageSnapshot.docs
-            imageData = images[getRandomInt(0,images.length)].data()
-            imageImageUrl = imageData.imageURL
-            console.log(imageImageUrl)
-        // drop group information into firebase "group" collection
-      let docRef = await db.collection('groups').add({ 
-        groupname: groupName, 
-        imageUrl: imageImageUrl, 
-        created: firebase.firestore.FieldValue.serverTimestamp()
-      })
-      let groupId = docRef.id // the newly created document's ID
-        
-      // drop user information into user-group mapping table
-      let docRefMapping = await db.collection('user-group-mapping').add({ 
-        groupId: groupId, 
-        userId: userId, 
-        groupName: groupName,
-        created: firebase.firestore.FieldValue.serverTimestamp()
-      })
-      document.querySelector('#groupName').value = '' // clear the group name field
-    })
+            // drop user information into user-group mapping table
+            let docRefMapping = db.collection('user-group-mapping').add({ 
+                groupId: 'VQfOJRhzZYYzUdUsxZUv', 
+                userId: userId, 
+                groupName: 'faMMM',
+                created: firebase.firestore.FieldValue.serverTimestamp()
+            })
 
+      })
+    
+    // Render all groups when the page is loaded
+    // let querySnapshot = await db.collection('groups').orderBy('created').get()
+    // let groups = querySnapshot.docs
+    // for (let i=0; i<groups.length; i++) {
+    //   let groupId = groups[i].id
+    //   let groupData = groups[i].data()
+    //   let groupName = groupData.groupname
+    //   let groupImageUrl = groupData.imageUrl
+    //   renderGroups(groupId, groupName, groupImageUrl)
+    // }
 
   } else {
     // Signed out

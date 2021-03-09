@@ -38,17 +38,23 @@ firebase.auth().onAuthStateChanged(async function(user) {
       document.location.href = 'index.html'
     })
 
-    // Render all USER groups when the page is loaded
-    let querySnapshot = await db.collection('groups').orderBy('created').get()
-    let groups = querySnapshot.docs
-    for (let i=0; i<groups.length; i++) {
-      let groupId = groups[i].id
-      let groupData = groups[i].data()
+    // Pull all user's groupIds when page is loaded
+    let querySnapshotUser = await db.collection('user-group-mapping').where('userId', '==', userId).get()
+    let userGroups = querySnapshotUser.docs
+      //grab user's groupIds
+    for (let i=0; i<userGroups.length; i++) {
+      let userGroupId = userGroups[i].id
+      let userGroupData = userGroups[i].data()
+      let userGroupIds = userGroupData.groupId 
+      //grab group information
+      let querySnapshot = await db.collection('groups').doc(userGroupIds).get()
+      let groupData = querySnapshot.data()
       let groupName = groupData.groupname
       let groupImageUrl = groupData.imageUrl
+      let groupId = userGroupIds
+      //render groups
       renderUserGroups(groupId, groupName, groupImageUrl)
-    }
-
+  }
 
   } else {
     // Signed out
