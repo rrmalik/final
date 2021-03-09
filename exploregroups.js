@@ -24,19 +24,6 @@ firebase.auth().onAuthStateChanged(async function(user) {
     firstName = splitUserName[0]
     console.log(firstName)
     
-    // document.querySelector('.introduction').insertAdjacentHTML('beforeend', `
-    // <h1 class="text-6xl text-left pl-32"> <strong> hey, raman 👋  </strong> </h1>
-    //     `)
-
-    // // Sign-out button orig
-    // document.querySelector('.sign-in-or-sign-out').innerHTML = `
-    //   <button class="text-pink-500 underline sign-out">Sign Out</button>
-    // `
-    // document.querySelector('.sign-out').addEventListener('click', function(event) {
-    //   console.log('sign out clicked')
-    //   firebase.auth().signOut()
-    //   document.location.href = 'index.html'
-    // })
 
     // Sign-out button new
     document.querySelector('.sign-out').innerHTML = `
@@ -56,8 +43,7 @@ firebase.auth().onAuthStateChanged(async function(user) {
       let groupData = groups[i].data()
       let groupName = groupData.groupname
       let groupImageUrl = groupData.imageUrl
-      let groupNumberOfPaperclips = groupData.likes
-      renderGroups(groupId, groupName, groupImageUrl, groupNumberOfPaperclips)
+      renderGroups(groupId, groupName, groupImageUrl)
     }
 
   } else {
@@ -85,19 +71,15 @@ firebase.auth().onAuthStateChanged(async function(user) {
 async function renderGroups(groupId, groupName, groupImageUrl, groupNumberOfPaperclips) {
   document.querySelector('.groups').insertAdjacentHTML('beforeend', `
       <div class="px-1">
-        <div class="groups-${groupId} md:mt-16 mt-8 space-y-4">
+        <div class="groups-${groupId} md:mt-16 mt-8 space-y-2">
           <div class="md:mx-0 mx-4">
               <span class="font-bold text-xl">${groupName}</span>
           </div>
       
           <div>
-              <img src="${groupImageUrl}" class="w-full shadow-2xl">
+              <img src="${groupImageUrl}" class="w-full shadow-2xl hover:border-2 hover:border-black">
           </div>
       
-          <div class="text-3xl md:mx-0 mx-4">
-              <button class="like-button">📎</button>
-              <span class="likes">${groupNumberOfPaperclips}</span>
-          </div>
         </div>
       </div>
     
@@ -110,15 +92,4 @@ async function renderGroups(groupId, groupName, groupImageUrl, groupNumberOfPape
     document.location.href = 'reviewcontent.html'
   })
 
-
-  document.querySelector(`.groups-${groupId} .like-button`).addEventListener('click', async function(event) {
-    event.preventDefault()
-    console.log(`groups ${groupId} like button clicked!`)
-    let existingNumberOfLikes = document.querySelector(`.groups-${groupId} .likes`).innerHTML
-    let newNumberOfLikes = parseInt(existingNumberOfLikes) + 1
-    document.querySelector(`.groups-${groupId} .likes`).innerHTML = newNumberOfLikes
-    await db.collection('groups').doc(groupId).update({
-      likes: firebase.firestore.FieldValue.increment(1)
-    })
-  })
 }
