@@ -52,6 +52,7 @@ firebase.auth().onAuthStateChanged(async function(user) {
       let groupName = groupData.groupname
       let groupImageUrl = groupData.imageUrl
       let groupId = userGroupIds
+
       //render groups
       renderUserGroups(groupId, groupName, groupImageUrl)
   }

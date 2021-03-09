@@ -25,16 +25,6 @@ firebase.auth().onAuthStateChanged(async function(user) {
 
     document.location.href = 'home.html'
 
-    // // Sign-up button new
-    // document.querySelector('.sign-up').innerHTML = `
-    //   <button class=""> sign up </button>
-    // `
-    // document.querySelector('.sign-up').addEventListener('click', function(event) {
-    //   console.log('sign out clicked')
-    //   firebase.auth().signOut()
-    //   document.location.href = 'index.html'
-    // })
-
   } else {
     // Signed out
     console.log('signed out')
@@ -69,8 +59,6 @@ firebase.auth().onAuthStateChanged(async function(user) {
     `
     document.querySelector('.sign-up').addEventListener('click', function(event) {
       console.log('sign up clicked')
-    //   firebase.auth().signOut()
-    //   document.location.href = 'index.html'
 
     // Hide the sign up and log in buttons
     document.querySelector('.sign-up').classList.add('hidden')
