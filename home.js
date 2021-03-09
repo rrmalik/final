@@ -82,13 +82,13 @@ firebase.auth().onAuthStateChanged(async function(user) {
 async function renderUserGroups(groupId, groupName, groupImageUrl, groupNumberOfPaperclips) {
     document.querySelector('.userGroups').insertAdjacentHTML('beforeend', `
         <div class="px-1">
-          <div class="groups-${groupId} md:mt-16 mt-8 space-y-2">
+          <div class="groups-${groupId} md:mt-16 mt-8 space-y-2 focus:ring-4">
             <div class="md:mx-0 mx-4">
                 <span class="font-bold text-xl">${groupName}</span>
             </div>
         
-            <div>
-                <img src="${groupImageUrl}" class="w-full shadow-2xl hover:border-2 hover:border-black">
+            <div class="hover:border-8 hover:border-black">
+                <img src="${groupImageUrl}" class="w-full shadow-2xl">
             </div>
         
           </div>
