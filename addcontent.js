@@ -1,3 +1,11 @@
+/*
+- create a lookup "table": user_id, group_id
+- pull from table for a given user, grab group_ids
+- loop through, db.collection for each group_id
+- pull in relevant group information
+*/
+
+
 let db = firebase.firestore()
 
 // Change main event listener from DOMContentLoaded to 
