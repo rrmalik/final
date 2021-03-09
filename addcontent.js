@@ -46,21 +46,31 @@ firebase.auth().onAuthStateChanged(async function(user) {
       event.preventDefault()
       //grab data from form
       let destinationGroup = document.querySelector('#destinationGroup').value
-      let type = document.querySelector('#type').value
+        //loop to figure out which 
+      let contentType = document.querySelector('#contentType').value
       let url = document.querySelector('#url').value
       let title = document.querySelector('#title').value
-      let category = document.querySelector('#category').value
       let time = document.querySelector('#time').value
       let commentary = document.querySelector('#commentary').value
       let docRef = await db.collection('content').add({ 
-          //update this next!!
-        groupname: groupName, 
-        imageUrl: imageImageUrl, 
-        likes: 0,
-        created: firebase.firestore.FieldValue.serverTimestamp()
+          destinationGroup: destinationGroup, 
+          contentType: contentType, 
+          url: url,
+          title: title,
+          time: time, 
+          commentary: commentary,
+          created: firebase.firestore.FieldValue.serverTimestamp(),
+          userId: userId
       })
       let groupId = docRef.id // the newly created document's ID
-      document.querySelector('#groupName').value = '' // clear the group name field
+
+      // clear form
+      document.querySelector('#destinationGroup').value = '' 
+      document.querySelector('#contentType').value = '' 
+      document.querySelector('#url').value = '' 
+      document.querySelector('#title').value = '' 
+      document.querySelector('#time').value = '' 
+      document.querySelector('#commentary').value = '' 
     //   renderGroups(groupId, groupName, imageImageUrl, groupNumberOfPaperclips)
     })
 

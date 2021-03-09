@@ -5,7 +5,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet" type="text/css">
-  <title>paperclip 📎 </title>
+  <title>paperclip</title>
+  <link rel="icon" href="papercliplogo.png">
 </head>
 
 <body style="background-color:f8f8f8;">
@@ -13,8 +14,8 @@
     <div class="md:flex justify-left space-x-2 md:space-y-0 space-y-3 my-4">
       <div class="w-3/4 text-left pl-8 pt-2 font-bold text-2xl"><a href="home.html">paperclip 📎 </a> </div> 
       <div class="w-1/8 text-right pt-2 font-light text-1xl"></div> 
-      <div class="sign-out w-1/8 text-center inline-block border-2 border-black text-black-800 rounded-lg px-4 py-2 hover:bg-black hover:text-white">sign out</a> </div> 
       <div class="back-to-home w-1/8 text-center inline-block border-2 border-black text-black-800 rounded-lg px-4 py-2 hover:bg-black hover:text-white"><a href="home.html">back to home </a> </div>  
+      <div class="sign-out w-1/8 text-center inline-block border-2 border-black text-black-800 rounded-lg px-4 py-2 hover:bg-black hover:text-white">sign out</a> </div> 
     </div>
     <br>
 
@@ -26,15 +27,14 @@
   
       <!-- New post form -->
       <div>
-        <form class="w-full mt-8">
-          <input type="text" id="destinationGroup" name="destinationGroup" placeholder="destination group" class="my-2 p-2 w-64 border-b border-black-400 rounded shadow-xl focus:outline-none focus:ring-purple-500 focus:border-purple-500"> <br>
-          <input type="text" id="type" name="type" placeholder="content type" class="my-2 p-2 w-64 border-b border-black-400 rounded shadow-xl focus:outline-none focus:ring-purple-500 focus:border-purple-500"> <br>
-          <input type="text" id="url" name="url" placeholder="url" class="my-2 p-2 w-64 border-b border-black-400 rounded shadow-xl focus:outline-none focus:ring-purple-500 focus:border-purple-500"> <br>
-          <input type="text" id="title" name="title" placeholder="title" class="my-2 p-2 w-64 border-b border-black-400 rounded shadow-xl focus:outline-none focus:ring-purple-500 focus:border-purple-500"> <br>
-          <input type="text" id="category" name="category" placeholder="category" class="my-2 p-2 w-64 border-b border-black-400 rounded shadow-xl focus:outline-none focus:ring-purple-500 focus:border-purple-500"> <br>
-          <input type="text" id="time" name="time" placeholder="time to consume" class="my-2 p-2 w-64 border-b border-black-400 rounded shadow-xl focus:outline-none focus:ring-purple-500 focus:border-purple-500"> <br>
-          <input type="text" id="commentary" name="commentary" placeholder="commentary" class="my-2 p-2 w-64 border-b border-black-400 rounded shadow-xl focus:outline-none focus:ring-purple-500 focus:border-purple-500"> <br>
-          <div><button class="bg-green-400 hover:bg-green-500 text-white px-4 py-2 rounded-xl">Add Content</button></div>
+        <form class="w-full mt-4">
+          <input type="text" id="destinationGroup" name="destinationGroup" placeholder="🛩 destination group" class="my-2 p-2 w-96 border-b border-black focus:outline-none focus:ring-blue-700 focus:border-blue-700"> <br>
+          <input type="text" id="contentType" name="contentType" placeholder="⚫️ content type" class="my-2 p-2 w-96 border-b border-black focus:outline-none focus:ring-blue-700 focus:border-blue-700"> <br>
+          <input type="text" id="url" name="url" placeholder="🔗 url" class="my-2 p-2 w-96 border-b border-black focus:outline-none focus:ring-blue-700 focus:border-blue-700"> <br>
+          <input type="text" id="title" name="title" placeholder="✏ title" class="my-2 p-2 w-96 border-b border-black focus:outline-none focus:ring-blue-700 focus:border-blue-700"> <br>
+          <input type="text" id="time" name="time" placeholder="⌚ time to consume (minutes)" class="my-2 p-2 w-96 border-b border-black focus:outline-none focus:ring-blue-700 focus:border-blue-700"> <br>
+          <input type="text" id="commentary" name="commentary" placeholder="🔍 commentary" class="my-2 p-2 w-96 border-b border-black focus:outline-none focus:ring-blue-700 focus:border-blue-700"> <br>
+          <div><button class="text-center inline-block border-2 border-black text-black-800 rounded-lg px-4 py-2 hover:bg-black hover:text-white">add content</button></div>
         </form>
       </div>
 
