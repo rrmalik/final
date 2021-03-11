@@ -87,7 +87,7 @@ async function renderUserGroups(groupId, groupName, groupImageUrl, groupNumberOf
                 <span class="font-bold text-xl">${groupName}</span>
             </div>
         
-            <div class="hover:border-8 hover:border-black">
+            <div class="border-2 hover:border-black">
                 <img src="${groupImageUrl}" class="w-full shadow-2xl">
             </div>
         
