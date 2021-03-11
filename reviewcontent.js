@@ -129,7 +129,7 @@ firebase.auth().onAuthStateChanged(async function(user) {
           userId: userId,
           userName: userName
       })
-      // let groupId = docRef.id // the newly created document's ID
+      let newContentItem = docRef.id // the newly created document's ID
       
       // clear form
       document.querySelector('#url').value = '' 
@@ -139,11 +139,9 @@ firebase.auth().onAuthStateChanged(async function(user) {
       document.querySelector('#commentary').value = ''     
 
     // Render all content when the page is loaded
-    let querySnapshot = await db.collection('content').orderBy('created').get()
-    let content = querySnapshot.docs
-    for (let i=0; i<content.length; i++) {
-      let contentId = content[i].id
-      let contentData = content[i].data()
+    let querySnapshot = await db.collection('content').doc(newContentItem).get()
+    console.log(newContentItem)
+    let contentData = querySnapshot.data()
       let contentTitle = contentData.title
       let contentAuthor = contentData.author
       let contentUserId = contentData.userId
@@ -152,7 +150,6 @@ firebase.auth().onAuthStateChanged(async function(user) {
       let contentTime = contentData.time
       let contentDisplayName = contentData.userName
       renderContent(contentUrl, contentTitle, contentAuthor, contentTime, contentUserId, contentDisplayName, contentCommentary)
-    }
     
     })
     
@@ -197,6 +194,6 @@ async function renderContent(contentUrl, contentTitle, contentAuthor, contentTim
     <h2 class="w-1/8 rounded-lg text-left font-dark font-normal text-xl underline"> <strong> <a href="${contentUrl}"> ${contentTitle}</a> </h2>
     <h2 class="w-1/8 rounded-lg text-left font-dark font-normal text-medium">✏️  | ${contentAuthor} | ${contentTime} minutes | ${contentDisplayName} 📎 </h2>
     <h2 class="w-1/8 rounded-lg text-left text-gray-600 font-thin text-medium"> ${contentCommentary} </h2>
-  </div>
+  </div> <br>
   `)
 }
