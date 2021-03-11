@@ -130,6 +130,8 @@ firebase.auth().onAuthStateChanged(async function(user) {
           userName: userName
       })
       let newContentItem = docRef.id // the newly created document's ID
+
+      modal.style.display = "none";
       
       // clear form
       document.querySelector('#url').value = '' 
@@ -190,9 +192,9 @@ firebase.auth().onAuthStateChanged(async function(user) {
 
 async function renderContent(contentUrl, contentTitle, contentAuthor, contentTime, contentUserId, contentDisplayName, contentCommentary) {
   document.querySelector('.content').insertAdjacentHTML('beforeend', `
-  <div class="grid gap-0 grid-cols-1 align-left pl-32">
+  <div class="grid pl-32 gap-0 grid-cols-1 align-left">
     <h2 class="w-1/8 rounded-lg text-left font-dark font-normal text-xl underline"> <strong> <a href="${contentUrl}"> ${contentTitle}</a> </h2>
-    <h2 class="w-1/8 rounded-lg text-left font-dark font-normal text-medium">✏️  | ${contentAuthor} | ${contentTime} minutes | ${contentDisplayName} 📎 </h2>
+    <h2 class="w-1/8 rounded-lg text-left font-dark font-normal text-medium">✏️  ${contentAuthor} | ${contentTime} minutes | 📎 ${contentDisplayName} </h2>
     <h2 class="w-1/8 rounded-lg text-left text-gray-600 font-thin text-medium"> ${contentCommentary} </h2>
   </div> <br>
   `)

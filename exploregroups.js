@@ -77,7 +77,7 @@ async function renderGroups(groupId, groupName, groupImageUrl, groupNumberOfPape
           </div>
       
           <div>
-              <img src="${groupImageUrl}" class="w-full shadow-2xl hover:border-2 hover:border-black">
+              <img src="${groupImageUrl}" class="w-full shadow-2xl border-2 hover:border-black">
           </div>
       
         </div>
