@@ -41,12 +41,11 @@ firebase.auth().onAuthStateChanged(async function(user) {
       document.location.href = 'index.html'
     })
 
-    // Listen for the form submit and create/render the new group
+    // Listen for the form submit and create/render the new content
     document.querySelector('form').addEventListener('submit', async function(event) {
       event.preventDefault()
       //grab data from form
       let destinationGroup = document.querySelector('#destinationGroup').value
-        //loop to figure out which 
       let contentType = document.querySelector('#contentType').value
       let url = document.querySelector('#url').value
       let title = document.querySelector('#title').value
