@@ -65,6 +65,7 @@ firebase.auth().onAuthStateChanged(async function(user) {
         groupId: groupId, 
         userId: userId, 
         groupName: groupName,
+        userName: firstName,
         created: firebase.firestore.FieldValue.serverTimestamp()
       })
       document.querySelector('#groupName').value = '' // clear the group name field

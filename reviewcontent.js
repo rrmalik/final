@@ -6,29 +6,31 @@ let db = firebase.firestore()
 // shows login UI to only show when signed out
 firebase.auth().onAuthStateChanged(async function(user) {
   if (user) {
-    // Signed in
+  // Signed in
     console.log('signed in')
 
-    // Ensure the signed-in user is in the users collection
+  // Ensure the signed-in user is in the users collection
     db.collection('users').doc(user.uid).set({
       name: user.displayName,
       email: user.email
     })
-
+  
+  // Pull user and group information
     let userName = user.displayName
     let userId = user.uid
-
-    console.log(`${userName} signed in`)
-    
     splitUserName = userName.split(' ')
     firstName = splitUserName[0]
-    console.log(firstName)
-    
-    let groupId = 'VQfOJRhzZYYzUdUsxZUv'
+    let queryString = new URLSearchParams(document.location.search)
+    let groupId = queryString.get('groupId')
     console.log(`group = ${groupId}`)
     console.log(`user = ${userId}`)
 
-    // Sign-out button new
+  // Grab group information
+    let querySnapshotGroups = await db.collection('groups').doc(groupId).get()
+    let groupData = querySnapshotGroups.data()
+    let groupName = groupData.groupname
+
+  // Sign-out button new
     document.querySelector('.sign-out').innerHTML = `
       <button class="">sign out</button>
     `
@@ -38,42 +40,61 @@ firebase.auth().onAuthStateChanged(async function(user) {
       document.location.href = 'index.html'
     })
 
-    //check if user is a member
+  // Grab current group-member mapping
+    let querySnapshotCuratedBy = await db.collection('user-group-mapping').where('groupId', '==', groupId).get()
+    let curatedList = querySnapshotCuratedBy.docs
+    console.log(curatedList.length)
+    let curatedBy = []
+    for (let i=0; i<curatedList.length; i++) {
+      let curatedId = curatedList[i].id
+      let curatedlistData = curatedList[i].data()
+      let curatedFirstName = curatedlistData.firstName
+      console.log(curatedFirstName)
+      curatedBy.push(` ${curatedFirstName}`)
+    }
+  
+  // Populate curated by: 
+    document.querySelector('.curatedBy').innerHTML = `
+    <div class="pl-32 w-1/8 rounded-lg text-left font-dark font-normal text-small "><strong>curated by:</strong>${curatedBy.join().toLowerCase()}</div>
+  `
+
+  // Check if user is a member
     let querySnapshotUser = await db.collection('user-group-mapping').where('userId', '==', userId).get()
     let querySnapshotUserDocs = querySnapshotUser.docs
     
     if (querySnapshotUserDocs.length > 0) {
       console.log("user is member of this group") 
 
-        // add-Content button 
+  // Populate the "Add Content" button 
         document.querySelector('.add-content').innerHTML = `
         <button class="">add content</button>
         `
-        // hide join group button 
+  // Hide the "Join Group" "button 
          document.querySelector('.join-group').classList.add('hidden')
 
       } else { // if user is NOT  member....
         console.log('user is not a member of this group')
 
-        // hide add content button
+      // hide add content button
         document.querySelector('.add-content').classList.add('hidden')
 
-        // hide member flag
+      // hide member flag
         document.querySelector('.member').classList.add('hidden')
 
-        // display Join-Group button 
+      // display Join-Group button 
         document.querySelector('.join-group').innerHTML = `
         <button class="">join group</button>
       `
-        // if join group button is clicked...
+      // if join group button is clicked...
         document.querySelector('.join-group').addEventListener('click', function(event) {
           console.log('join group clicked')
 
         // drop user information into user-group mapping table
             let docRefMapping = db.collection('user-group-mapping').add({ 
-                groupId: 'VQfOJRhzZYYzUdUsxZUv', 
+                groupId: groupId, 
                 userId: userId, 
-                groupName: 'faMMM',
+                groupName: groupName,
+                firstName: firstName,
                 created: firebase.firestore.FieldValue.serverTimestamp()
             })
         
@@ -85,6 +106,13 @@ firebase.auth().onAuthStateChanged(async function(user) {
 
         //bring back the member flag
             document.querySelector('.member').classList.remove('hidden')
+
+        // REpopulate curated by: 
+            curatedBy.push(` ${firstName}`)
+            console.log(curatedBy.join().toLowerCase())
+            document.querySelector('.curatedBy').innerHTML = `
+            <div class="pl-32 w-1/8 rounded-lg text-left font-dark font-normal text-small "><strong>curated by:</strong>${curatedBy.join().toLowerCase()}</div>
+          `
       })
     }
 
@@ -155,8 +183,13 @@ firebase.auth().onAuthStateChanged(async function(user) {
     
     })
     
+    // Group Name
+    document.querySelector('.group-name').innerHTML = `
+    <div class="text-6xl text-left pl-32 font-bold">${groupName}</div>
+     `
+
     // Render all content when the page is loaded
-    let querySnapshot = await db.collection('content').orderBy('created').get()
+    let querySnapshot = await db.collection('content').where('groupId', '==', groupId).orderBy('created','desc').get()
     let content = querySnapshot.docs
     for (let i=0; i<content.length; i++) {
       let contentId = content[i].id

@@ -87,8 +87,8 @@ async function renderUserGroups(groupId, groupName, groupImageUrl, groupNumberOf
                 <span class="font-bold text-xl">${groupName}</span>
             </div>
         
-            <div class="border-2 hover:border-black">
-                <img src="${groupImageUrl}" class="w-full shadow-2xl">
+            <div class="border-2 border-transparent hover:border-black">
+                <img src="${groupImageUrl}" class="w-full shadow-2xl ">
             </div>
         
           </div>
@@ -100,7 +100,7 @@ async function renderUserGroups(groupId, groupName, groupImageUrl, groupNumberOf
    document.querySelector(`.groups-${groupId}`).addEventListener('click', async function(event) {
     event.preventDefault()
     console.log(`You clicked ${groupId}`)
-    document.location.href = 'reviewcontent.html'
+    document.location.href = `reviewcontent.html?groupId=${groupId}`
   })
 
 }
