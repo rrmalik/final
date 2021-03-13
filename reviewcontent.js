@@ -43,13 +43,11 @@ firebase.auth().onAuthStateChanged(async function(user) {
   // Grab current group-member mapping
     let querySnapshotCuratedBy = await db.collection('user-group-mapping').where('groupId', '==', groupId).get()
     let curatedList = querySnapshotCuratedBy.docs
-    console.log(curatedList.length)
     let curatedBy = []
     for (let i=0; i<curatedList.length; i++) {
       let curatedId = curatedList[i].id
       let curatedlistData = curatedList[i].data()
       let curatedFirstName = curatedlistData.firstName
-      console.log(curatedFirstName)
       curatedBy.push(` ${curatedFirstName}`)
     }
   
@@ -89,7 +87,7 @@ firebase.auth().onAuthStateChanged(async function(user) {
         document.querySelector('.join-group').addEventListener('click', function(event) {
           console.log('join group clicked')
 
-        // drop user information into user-group mapping table
+      // drop user information into user-group mapping table
             let docRefMapping = db.collection('user-group-mapping').add({ 
                 groupId: groupId, 
                 userId: userId, 
@@ -189,8 +187,9 @@ firebase.auth().onAuthStateChanged(async function(user) {
      `
 
     // Render all content when the page is loaded
-    let querySnapshot = await db.collection('content').where('groupId', '==', groupId).orderBy('created','desc').get()
+    let querySnapshot = await db.collection('content').where('destinationGroup', '==', groupId).orderBy('created','desc').get()
     let content = querySnapshot.docs
+    console.log(content.length)
     for (let i=0; i<content.length; i++) {
       let contentId = content[i].id
       let contentData = content[i].data()
