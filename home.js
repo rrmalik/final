@@ -38,6 +38,15 @@ firebase.auth().onAuthStateChanged(async function(user) {
       document.location.href = 'index.html'
     })
 
+    // Explore groups
+    document.querySelector('.explore-groups').innerHTML = `
+      <button class="">explore groups</button>
+    `
+    document.querySelector('.explore-groups').addEventListener('click', function(event) {
+      console.log('explore groups clicked')
+      document.location.href = 'exploregroups.html'
+    })
+
     // Pull all user's groupIds when page is loaded
     let querySnapshotUser = await db.collection('user-group-mapping').where('userId', '==', userId).get()
     let userGroups = querySnapshotUser.docs
@@ -56,6 +65,72 @@ firebase.auth().onAuthStateChanged(async function(user) {
       //render groups
       renderUserGroups(groupId, groupName, groupImageUrl)
   }
+
+  
+ // BUILD THE MODAL
+ var modal = document.getElementById("myModal"); // Get the modal
+ var btn = document.getElementById("myBtn"); // Get the button that opens the modal
+ var span = document.getElementsByClassName("close")[0]; // Get the <span> element that closes the modal
+ 
+ btn.onclick = function() {    // When the user clicks on the button, open the modal
+   modal.style.display = "block";
+ }
+
+ span.onclick = function() { // When the user clicks on <span> (x), close the modal
+   modal.style.display = "none";
+ }
+
+ window.onclick = function(event) {  // When the user clicks anywhere outside of the modal, close it
+   if (event.target == modal) {
+     modal.style.display = "none";
+   }
+ }
+
+// START - create group flow
+
+    // Populate the "Create Group" button 
+        document.querySelector('.creategroup').innerHTML = `
+        <button class="">create group</button>
+        `
+
+    // Random integer function
+    function getRandomInt(min, max) {
+      min = Math.ceil(min);
+      max = Math.floor(max);
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  // Listen for the form submit and create/render the new group
+  document.querySelector('form').addEventListener('submit', async function(event) {
+    event.preventDefault()
+    let groupName = document.querySelector('#groupName').value
+       // Grab random image from firebase to assign to group avatar
+          let imageSnapshot = await db.collection('images').get()
+          let images = imageSnapshot.docs
+          imageData = images[getRandomInt(0,images.length)].data()
+          imageImageUrl = imageData.imageURL
+          console.log(imageImageUrl)
+      // drop group information into firebase "group" collection
+    let docRef = await db.collection('groups').add({ 
+      groupname: groupName, 
+      imageUrl: imageImageUrl, 
+      created: firebase.firestore.FieldValue.serverTimestamp()
+    })
+    let groupId = docRef.id // the newly created document's ID
+      
+    // drop user information into user-group mapping table
+    let docRefMapping = await db.collection('user-group-mapping').add({ 
+      groupId: groupId, 
+      userId: userId, 
+      groupName: groupName,
+      userName: firstName,
+      created: firebase.firestore.FieldValue.serverTimestamp()
+    })
+    document.querySelector('#groupName').value = '' // clear the group name field
+    modal.style.display = "none";
+
+    renderUserGroups(groupId, groupName, imageImageUrl)
+  })
 
   } else {
     // Signed out
