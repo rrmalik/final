@@ -47,7 +47,7 @@ firebase.auth().onAuthStateChanged(async function(user) {
       document.location.href = 'exploregroups.html'
     })
 
-    // Pull all user's groupIds when page is loaded
+    // Pull all user's groupIds when pages is loaded
     let querySnapshotUser = await db.collection('user-group-mapping').where('userId', '==', userId).get()
     let userGroups = querySnapshotUser.docs
       //grab user's groupIds
