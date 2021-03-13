@@ -109,7 +109,7 @@ firebase.auth().onAuthStateChanged(async function(user) {
           let images = imageSnapshot.docs
           imageData = images[getRandomInt(0,images.length)].data()
           imageImageUrl = imageData.imageURL
-          console.log(imageImageUrl)
+          // console.log(imageImageUrl)
       // drop group information into firebase "group" collection
     let docRef = await db.collection('groups').add({ 
       groupname: groupName, 
@@ -123,7 +123,7 @@ firebase.auth().onAuthStateChanged(async function(user) {
       groupId: groupId, 
       userId: userId, 
       groupName: groupName,
-      userName: firstName,
+      firstName: firstName,
       created: firebase.firestore.FieldValue.serverTimestamp()
     })
     document.querySelector('#groupName').value = '' // clear the group name field
