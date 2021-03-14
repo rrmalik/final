@@ -36,7 +36,7 @@ firebase.auth().onAuthStateChanged(async function(user) {
     })
     
     //from api
-    let response = await fetch(`/.netlify/functions/get_groups`)
+    // let response = await fetch(`/.netlify/functions/get_groups`)
 
     // Render all groups when the page is loaded
     let querySnapshot = await db.collection('groups').orderBy('created').get()
