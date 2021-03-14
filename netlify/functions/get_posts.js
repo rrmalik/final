@@ -1,4 +1,4 @@
-// /.netlify/functions/get_posts
+// /.netlify/functions/get_groups
 let firebase = require('./firebase')
 
 exports.handler = async function(event) {
