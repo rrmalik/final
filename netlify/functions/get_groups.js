@@ -26,6 +26,6 @@ let querySnapshot = await db.collection('groups')
   // return an Object in the format that a Netlify lambda function expects
   return {
     statusCode: 200,
-    body: JSON.stringify(groupsData)
+    body: JSON.stringify(groupsAPI)
   }
 }
