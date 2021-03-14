@@ -1,15 +1,15 @@
 let firebase = require('./firebase')
 
 exports.handler = async function(event) {
-// console.log('hello from the back-end')
-// console.log(event)
-// let queryStringUserId = event.queryStringParameter.userId
-// console.log(queryStringUserId)
+console.log('hello from the back-end')
+
+let queryStringGroupId = event.queryStringParameters.groupid
+console.log(queryStringGroupId)
 
 let contentAPI = []
 let db = firebase.firestore()
 let querySnapshot = await db.collection('content')
-                            .where('destinationGroup', '==', groupId)
+                            .where('destinationGroup', '==', queryStringGroupId)
                             .orderBy('created','desc').get()
 let content = querySnapshot.docs
 console.log(content.length)
@@ -34,7 +34,6 @@ for (let i=0; i<content.length; i++) {
     contentDisplayName: contentDisplayName
   })
 }
-
   // return an Object in the format that a Netlify lambda function expects
   return {
     statusCode: 200,
