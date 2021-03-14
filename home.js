@@ -105,11 +105,9 @@ firebase.auth().onAuthStateChanged(async function(user) {
     event.preventDefault()
     let groupName = document.querySelector('#groupName').value
        // Grab random image from firebase to assign to group avatar
-          let imageSnapshot = await db.collection('images').get()
-          let images = imageSnapshot.docs
-          imageData = images[getRandomInt(0,images.length)].data()
-          imageImageUrl = imageData.imageURL
-          // console.log(imageImageUrl)
+          let responseImages = await fetch(`/.netlify/functions/get_images`)
+          let imageSnapshot = await responseImages.json()
+          let imageImageUrl = imageSnapshot[0].imageImageUrl
       // drop group information into firebase "group" collection
     let docRef = await db.collection('groups').add({ 
       groupname: groupName, 

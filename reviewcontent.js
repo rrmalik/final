@@ -40,7 +40,6 @@ firebase.auth().onAuthStateChanged(async function(user) {
       document.location.href = 'index.html'
     })
 
-
   // Grab current group-member mapping from API
   let response = await fetch(`/.netlify/functions/get_group_user_mapping?groupid=${groupId}`)
   let curatedBy = await response.json()
