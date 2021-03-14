@@ -35,19 +35,27 @@ firebase.auth().onAuthStateChanged(async function(user) {
       document.location.href = 'index.html'
     })
     
-    //from api
-    // let response = await fetch(`/.netlify/functions/get_groups`)
-
-    // Render all groups when the page is loaded
-    let querySnapshot = await db.collection('groups').orderBy('created').get()
-    let groups = querySnapshot.docs
+    // Render all groups when the page is loaded from API
+    let response = await fetch(`/.netlify/functions/get_groups`)
+    let groups = await response.json()
     for (let i=0; i<groups.length; i++) {
-      let groupId = groups[i].id
-      let groupData = groups[i].data()
-      let groupName = groupData.groupname
-      let groupImageUrl = groupData.imageUrl
+      let group = groups[i]
+      let groupId = group.groupId
+      let groupName = group.groupName
+      let groupImageUrl = group.groupImageUrl
       renderGroups(groupId, groupName, groupImageUrl)
     }
+
+    // This code speaks directly to 
+      // let querySnapshot = await db.collection('groups').orderBy('created').get()
+      // let groups = querySnapshot.docs
+      // for (let i=0; i<groups.length; i++) {
+      //   let groupId = groups[i].id
+      //   let groupData = groups[i].data()
+      //   let groupName = groupData.groupname
+      //   let groupImageUrl = groupData.imageUrl
+      //   renderGroups(groupId, groupName, groupImageUrl)
+      // }
 
   } else {
     // Signed out

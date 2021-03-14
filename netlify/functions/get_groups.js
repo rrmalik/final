@@ -19,7 +19,8 @@ let querySnapshot = await db.collection('groups')
       let groupImageUrl = groupData.imageUrl
       groupsAPI.push({
         groupName: groupName,
-        groupImageUrl: groupImageUrl
+        groupImageUrl: groupImageUrl,
+        groupId: groupId
       })
     }
 
