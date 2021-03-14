@@ -46,7 +46,7 @@ firebase.auth().onAuthStateChanged(async function(user) {
       renderGroups(groupId, groupName, groupImageUrl)
     }
 
-    // This code speaks directly to 
+    // This code speaks directly to Firebase - no longer needed! 
       // let querySnapshot = await db.collection('groups').orderBy('created').get()
       // let groups = querySnapshot.docs
       // for (let i=0; i<groups.length; i++) {
