@@ -168,7 +168,7 @@ async function renderUserGroups(groupId, groupName, groupImageUrl, groupNumberOf
     document.querySelector('.userGroups').insertAdjacentHTML('beforeend', `
         <div class="px-1">
           <div class="groups-${groupId} md:mt-16 mt-8 space-y-2 focus:ring-4">
-            <div class="md:mx-0 mx-4">
+            <div class="mx-0">
                 <span class="font-bold text-xl">${groupName}</span>
             </div>
         
