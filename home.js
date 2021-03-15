@@ -112,8 +112,6 @@ firebase.auth().onAuthStateChanged(async function(user) {
           let imageImageUrl = imageSnapshot[0].imageImageUrl
     
       // drop group information into firebase "group" collection
-    
-      // lamdba function
       let newGroupResponse = await fetch('/.netlify/functions/create_group', {
         method: 'POST',
         body: JSON.stringify({

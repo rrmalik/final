@@ -81,7 +81,6 @@ firebase.auth().onAuthStateChanged(async function(user) {
           console.log('join group clicked')
 
       // drop user information into user-group mapping table
-
             let newMappingResponse = await fetch('/.netlify/functions/create_user_group_map', {
               method: 'POST',
               body: JSON.stringify({
@@ -91,6 +90,7 @@ firebase.auth().onAuthStateChanged(async function(user) {
                 firstName: firstName
               })
             })
+
         // hide join group button 
             document.querySelector('.join-group').classList.add('hidden')
 
@@ -132,7 +132,7 @@ firebase.auth().onAuthStateChanged(async function(user) {
     document.querySelector('form').addEventListener('submit', async function(event) {
       event.preventDefault()
       console.log('form-submitted')
-      
+
       //grab data from form
       let destinationGroup = groupId
       let url = document.querySelector('#url').value
@@ -142,39 +142,40 @@ firebase.auth().onAuthStateChanged(async function(user) {
       let commentary = document.querySelector('#commentary').value
 
       //send data to firebase
-      let docRef = await db.collection('content').add({ 
-          destinationGroup: destinationGroup, 
-          url: url,
-          title: title,
-          author: author,
-          time: time, 
-          commentary: commentary,
-          created: firebase.firestore.FieldValue.serverTimestamp(),
-          userId: userId,
-          userName: userName
-      })
-      let newContentItem = docRef.id // the newly created document's ID
+      let newContentResponse = await fetch('/.netlify/functions/create_content', {
+              method: 'POST',
+              body: JSON.stringify({
+                destinationGroup: destinationGroup, 
+                url: url,
+                title: title,
+                author: author,
+                time: time, 
+                commentary: commentary,
+                userId: userId,
+                userName: userName
+              })
+            })
+
+      let newContent = await newContentResponse.json()
+      let newContentId = newContent.id //newly created document's ID
 
       modal.style.display = "none";
       
-      // clear form
+    // clear form
       document.querySelector('#url').value = '' 
       document.querySelector('#title').value = ''
       document.querySelector('#author').value = '' 
       document.querySelector('#time').value = '' 
       document.querySelector('#commentary').value = ''     
 
-    // Render all content when the page is loaded
-    let querySnapshot = await db.collection('content').doc(newContentItem).get()
-    console.log(newContentItem)
-    let contentData = querySnapshot.data()
-      let contentTitle = contentData.title
-      let contentAuthor = contentData.author
-      let contentUserId = contentData.userId
-      let contentUrl = contentData.url
-      let contentCommentary = contentData.commentary
-      let contentTime = contentData.time
-      let contentDisplayName = contentData.userName
+    // Render all content when the form is submitted
+      let contentTitle = newContent.title
+      let contentAuthor = newContent.author
+      let contentUserId = newContent.userId
+      let contentUrl = newContent.url
+      let contentCommentary = newContent.commentary
+      let contentTime = newContent.time
+      let contentDisplayName = newContent.userName
       renderContent(contentUrl, contentTitle, contentAuthor, contentTime, contentUserId, contentDisplayName, contentCommentary)
     
     })
