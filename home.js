@@ -25,7 +25,7 @@ firebase.auth().onAuthStateChanged(async function(user) {
     console.log(firstName)
     
     document.querySelector('.introduction').insertAdjacentHTML('beforeend', `
-    <h1 class="text-6xl text-left pl-24"> <strong> hey, ${firstName} 👋  </strong> </h1>
+    <h1 class="text-6xl text-left pl-24 md:pl-32"> <strong> hey, ${firstName} 👋  </strong> </h1>
         `)
 
     // Sign-out button new
