@@ -114,10 +114,10 @@ firebase.auth().onAuthStateChanged(async function(user) {
     
       let response = await fetch('/.netlify/functions/create_group', {
         method: 'POST',
-        body: {
+        body: JSON.stringify({
           groupname: groupName, 
           imageUrl: imageImageUrl, 
-        }
+        })
       })
 
 
