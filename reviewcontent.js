@@ -50,7 +50,7 @@ firebase.auth().onAuthStateChanged(async function(user) {
     <div class="pl-32 w-1/8 rounded-lg text-left font-dark font-normal text-small "><strong>curated by:</strong>${curatedBy.join().toLowerCase()}</div>
   `
   // Check if user is a member
-  let responseUser = await fetch(`/.netlify/functions/get_user_group_mapping?userid=${userId}`)
+  let responseUser = await fetch(`/.netlify/functions/get_user_group_mapping?userid=${userId}&groupid=${groupId}`)
   let querySnapshotUserDocs = await responseUser.json()  
 
     if (querySnapshotUserDocs.length > 0) {
@@ -77,18 +77,20 @@ firebase.auth().onAuthStateChanged(async function(user) {
         <button class="">join group</button>
       `
       // if join group button is clicked...
-        document.querySelector('.join-group').addEventListener('click', function(event) {
+        document.querySelector('.join-group').addEventListener('click', async function(event) {
           console.log('join group clicked')
 
       // drop user information into user-group mapping table
-            let docRefMapping = db.collection('user-group-mapping').add({ 
-                groupId: groupId, 
+
+            let newMappingResponse = await fetch('/.netlify/functions/create_user_group_map', {
+              method: 'POST',
+              body: JSON.stringify({
+                newGroupId: groupId, 
                 userId: userId, 
                 groupName: groupName,
-                firstName: firstName,
-                created: firebase.firestore.FieldValue.serverTimestamp()
+                firstName: firstName
+              })
             })
-        
         // hide join group button 
             document.querySelector('.join-group').classList.add('hidden')
 
@@ -130,6 +132,7 @@ firebase.auth().onAuthStateChanged(async function(user) {
     document.querySelector('form').addEventListener('submit', async function(event) {
       event.preventDefault()
       console.log('form-submitted')
+      
       //grab data from form
       let destinationGroup = groupId
       let url = document.querySelector('#url').value
@@ -137,6 +140,7 @@ firebase.auth().onAuthStateChanged(async function(user) {
       let author = document.querySelector('#author').value
       let time = document.querySelector('#time').value
       let commentary = document.querySelector('#commentary').value
+
       //send data to firebase
       let docRef = await db.collection('content').add({ 
           destinationGroup: destinationGroup, 
