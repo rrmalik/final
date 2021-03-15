@@ -47,7 +47,7 @@ firebase.auth().onAuthStateChanged(async function(user) {
   
   // Populate curated by: 
     document.querySelector('.curatedBy').innerHTML = `
-    <div class="pl-32 w-1/8 rounded-lg text-left font-dark font-normal text-small "><strong>curated by:</strong>${curatedBy.join().toLowerCase()}</div>
+    <div class="pl-24 md:pl-32 w-1/8 rounded-lg text-left font-dark font-normal text-small "><strong>curated by:</strong>${curatedBy.join().toLowerCase()}</div>
   `
   // Check if user is a member
   let responseUser = await fetch(`/.netlify/functions/get_user_group_mapping?userid=${userId}&groupid=${groupId}`)
@@ -104,7 +104,7 @@ firebase.auth().onAuthStateChanged(async function(user) {
             curatedBy.push(` ${firstName}`)
             console.log(curatedBy.join().toLowerCase())
             document.querySelector('.curatedBy').innerHTML = `
-            <div class="pl-32 w-1/8 rounded-lg text-left font-dark font-normal text-small "><strong>curated by:</strong>${curatedBy.join().toLowerCase()}</div>
+            <div class="pl-24 md:pl-32 w-1/8 rounded-lg text-left font-dark font-normal text-small "><strong>curated by:</strong>${curatedBy.join().toLowerCase()}</div>
           `
       })
     }
@@ -182,7 +182,7 @@ firebase.auth().onAuthStateChanged(async function(user) {
     
     // Group Name
     document.querySelector('.group-name').innerHTML = `
-    <div class="text-6xl text-left pl-32 font-bold">${groupName}</div>
+    <div class="text-6xl text-left pl-24 md:pl-32 font-bold">${groupName}</div>
      `
 
     // Render all content when the page is loaded
@@ -223,7 +223,7 @@ firebase.auth().onAuthStateChanged(async function(user) {
 
 async function renderContent(contentUrl, contentTitle, contentAuthor, contentTime, contentUserId, contentDisplayName, contentCommentary) {
   document.querySelector('.content').insertAdjacentHTML('beforeend', `
-  <div class="grid pl-32 gap-0 grid-cols-1 align-left">
+  <div class="grid pl-24 md:pl-32 gap-0 grid-cols-1 align-left">
     <h2 class="w-1/8 rounded-lg text-left font-dark font-normal text-xl underline"> <strong> <a href="${contentUrl}"> ${contentTitle}</a> </h2>
     <h2 class="w-1/8 rounded-lg text-left font-dark font-normal text-medium">✏️  ${contentAuthor} | ${contentTime} minutes | 📎 ${contentDisplayName} </h2>
     <h2 class="w-1/8 rounded-lg text-left text-gray-600 font-thin text-medium"> ${contentCommentary} </h2>
