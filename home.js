@@ -110,17 +110,23 @@ firebase.auth().onAuthStateChanged(async function(user) {
           let responseImages = await fetch(`/.netlify/functions/get_images`)
           let imageSnapshot = await responseImages.json()
           let imageImageUrl = imageSnapshot[0].imageImageUrl
+    
       // drop group information into firebase "group" collection
     
-      let response = await fetch('/.netlify/functions/create_group', {
-        method: 'POST',
-        body: JSON.stringify({
-          groupname: groupName, 
-          imageUrl: imageImageUrl, 
-        })
-      })
+      // lamdba function -- COMMENTED OUT! ISSUES! 
+          //   let newGroupResponse = await fetch('/.netlify/functions/create_group', {
+          //       method: 'POST',
+          //       body: JSON.stringify({
+          //         groupname: groupName,
+          //         imageUrl: imageImageUrl
+          //       })
+          //     })
 
+          // let newGroup = await newGroupResponse.json()
+          // let groupId = newGroup.id //newly created document's ID
+          // renderUserGroups(newGroup)
 
+    //firebase direct
     let docRef = await db.collection('groups').add({ 
       groupname: groupName, 
       imageUrl: imageImageUrl, 

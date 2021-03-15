@@ -1,9 +1,10 @@
-// /.netlify/functions/create_group
 let firebase = require('./firebase')
 
 exports.handler = async function (event) {
   let db = firebase.firestore()
+  console.log(event)
   let body = JSON.parse(event.body)
+  console.log(body)
   let groupname = body.groupname
   let imageUrl = body.imageUrl
 
@@ -18,9 +19,10 @@ exports.handler = async function (event) {
 
   let docRef = await db.collection('groups').add(newGroup)
   newGroup.id = docRef.id
+ 
 
   return {
     statusCode: 200,
-    body: JSON.stringify(newPost)
+    body: JSON.stringify(newGroup)
   }
 }
