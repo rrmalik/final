@@ -113,7 +113,7 @@ firebase.auth().onAuthStateChanged(async function(user) {
     
       // drop group information into firebase "group" collection
     
-      // lamdba function -- COMMENTED OUT! ISSUES! 
+      // lamdba function
       let newGroupResponse = await fetch('/.netlify/functions/create_group', {
         method: 'POST',
         body: JSON.stringify({
