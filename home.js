@@ -135,13 +135,7 @@ firebase.auth().onAuthStateChanged(async function(user) {
           firstName: firstName
         })
       })
-    // let docRefMapping = await db.collection('user-group-mapping').add({ 
-    //   groupId: newGroupId, 
-    //   userId: userId, 
-    //   groupName: groupName,
-    //   firstName: firstName,
-    //   created: firebase.firestore.FieldValue.serverTimestamp()
-    // })
+ 
     document.querySelector('#groupName').value = '' // clear the group name field
     modal.style.display = "none";
 
