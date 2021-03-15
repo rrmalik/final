@@ -26,9 +26,10 @@ firebase.auth().onAuthStateChanged(async function(user) {
     console.log(`user = ${userId}`)
 
   // Grab group information
-    let querySnapshotGroups = await db.collection('groups').doc(groupId).get()
-    let groupData = querySnapshotGroups.data()
-    let groupName = groupData.groupname
+    let responseGroupInfo = await fetch(`/.netlify/functions/get_groups?groupid=${groupId}`)
+    let groupSnapshot = await responseGroupInfo.json()
+    let groupSnapshotData = groupSnapshot[0]
+    let groupName = groupSnapshotData.groupName
 
   // Sign-out button new
     document.querySelector('.sign-out').innerHTML = `

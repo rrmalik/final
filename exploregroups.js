@@ -46,17 +46,6 @@ firebase.auth().onAuthStateChanged(async function(user) {
       renderGroups(groupId, groupName, groupImageUrl)
     }
 
-    // This code speaks directly to Firebase - no longer needed! 
-      // let querySnapshot = await db.collection('groups').orderBy('created').get()
-      // let groups = querySnapshot.docs
-      // for (let i=0; i<groups.length; i++) {
-      //   let groupId = groups[i].id
-      //   let groupData = groups[i].data()
-      //   let groupName = groupData.groupname
-      //   let groupImageUrl = groupData.imageUrl
-      //   renderGroups(groupId, groupName, groupImageUrl)
-      // }
-
   } else {
     // Signed out
     console.log('signed out')
