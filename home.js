@@ -114,29 +114,27 @@ firebase.auth().onAuthStateChanged(async function(user) {
       // drop group information into firebase "group" collection
     
       // lamdba function -- COMMENTED OUT! ISSUES! 
-          //   let newGroupResponse = await fetch('/.netlify/functions/create_group', {
-          //       method: 'POST',
-          //       body: JSON.stringify({
-          //         groupname: groupName,
-          //         imageUrl: imageImageUrl
-          //       })
-          //     })
-
-          // let newGroup = await newGroupResponse.json()
-          // let groupId = newGroup.id //newly created document's ID
-          // renderUserGroups(newGroup)
+      let newGroupResponse = await fetch('/.netlify/functions/create_group', {
+        method: 'POST',
+        body: JSON.stringify({
+          groupname: groupName,
+          imageUrl: imageImageUrl
+        })
+      })
+      let newGroup = await newGroupResponse.json()
+      let newGroupId = newGroup.id //newly created document's ID
 
     //firebase direct
-    let docRef = await db.collection('groups').add({ 
-      groupname: groupName, 
-      imageUrl: imageImageUrl, 
-      created: firebase.firestore.FieldValue.serverTimestamp()
-    })
-    let groupId = docRef.id // the newly created document's ID
+    // let docRef = await db.collection('groups').add({ 
+    //   groupname: groupName, 
+    //   imageUrl: imageImageUrl, 
+    //   created: firebase.firestore.FieldValue.serverTimestamp()
+    // })
+    // let groupId = docRef.id // the newly created document's ID
       
     // drop user information into user-group mapping table
     let docRefMapping = await db.collection('user-group-mapping').add({ 
-      groupId: groupId, 
+      groupId: newGroupId, 
       userId: userId, 
       groupName: groupName,
       firstName: firstName,
@@ -145,7 +143,7 @@ firebase.auth().onAuthStateChanged(async function(user) {
     document.querySelector('#groupName').value = '' // clear the group name field
     modal.style.display = "none";
 
-    renderUserGroups(groupId, groupName, imageImageUrl)
+    renderUserGroups(newGroupId, groupName, imageImageUrl)
   })
 
   } else {
