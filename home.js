@@ -111,6 +111,16 @@ firebase.auth().onAuthStateChanged(async function(user) {
           let imageSnapshot = await responseImages.json()
           let imageImageUrl = imageSnapshot[0].imageImageUrl
       // drop group information into firebase "group" collection
+    
+      let response = await fetch('/.netlify/functions/create_group', {
+        method: 'POST',
+        body: {
+          groupname: groupName, 
+          imageUrl: imageImageUrl, 
+        }
+      })
+
+
     let docRef = await db.collection('groups').add({ 
       groupname: groupName, 
       imageUrl: imageImageUrl, 
