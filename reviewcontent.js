@@ -26,9 +26,10 @@ firebase.auth().onAuthStateChanged(async function(user) {
     console.log(`user = ${userId}`)
 
   // Grab group information
-    let querySnapshotGroups = await db.collection('groups').doc(groupId).get()
-    let groupData = querySnapshotGroups.data()
-    let groupName = groupData.groupname
+    let responseGroupInfo = await fetch(`/.netlify/functions/get_groups?groupid=${groupId}`)
+    let groupSnapshot = await responseGroupInfo.json()
+    let groupSnapshotData = groupSnapshot[0]
+    let groupName = groupSnapshotData.groupName
 
   // Sign-out button new
     document.querySelector('.sign-out').innerHTML = `
@@ -40,26 +41,18 @@ firebase.auth().onAuthStateChanged(async function(user) {
       document.location.href = 'index.html'
     })
 
-  // Grab current group-member mapping
-    let querySnapshotCuratedBy = await db.collection('user-group-mapping').where('groupId', '==', groupId).get()
-    let curatedList = querySnapshotCuratedBy.docs
-    let curatedBy = []
-    for (let i=0; i<curatedList.length; i++) {
-      let curatedId = curatedList[i].id
-      let curatedlistData = curatedList[i].data()
-      let curatedFirstName = curatedlistData.firstName
-      curatedBy.push(` ${curatedFirstName}`)
-    }
+  // Grab current group-member mapping from API
+  let response = await fetch(`/.netlify/functions/get_group_user_mapping?groupid=${groupId}`)
+  let curatedBy = await response.json()
   
   // Populate curated by: 
     document.querySelector('.curatedBy').innerHTML = `
     <div class="pl-32 w-1/8 rounded-lg text-left font-dark font-normal text-small "><strong>curated by:</strong>${curatedBy.join().toLowerCase()}</div>
   `
-
   // Check if user is a member
-    let querySnapshotUser = await db.collection('user-group-mapping').where('userId', '==', userId).get()
-    let querySnapshotUserDocs = querySnapshotUser.docs
-    
+  let responseUser = await fetch(`/.netlify/functions/get_user_group_mapping?userid=${userId}`)
+  let querySnapshotUserDocs = await responseUser.json()  
+
     if (querySnapshotUserDocs.length > 0) {
       console.log("user is member of this group") 
 
@@ -188,19 +181,19 @@ firebase.auth().onAuthStateChanged(async function(user) {
      `
 
     // Render all content when the page is loaded
-    let querySnapshot = await db.collection('content').where('destinationGroup', '==', groupId).orderBy('created','desc').get()
-    let content = querySnapshot.docs
-    console.log(content.length)
+    let responseContent = await fetch(`/.netlify/functions/get_content?groupid=${groupId}`)
+    let content = await responseContent.json()  
+    console.log(content)
     for (let i=0; i<content.length; i++) {
-      let contentId = content[i].id
-      let contentData = content[i].data()
-      let contentTitle = contentData.title
-      let contentAuthor = contentData.author
-      let contentUserId = contentData.userId
-      let contentUrl = contentData.url
-      let contentCommentary = contentData.commentary
-      let contentTime = contentData.time
-      let contentDisplayName = contentData.userName
+      let contentData = content[i]
+      let contentId = contentData.contentId
+      let contentTitle = contentData.contentTitle
+      let contentAuthor = contentData.contentAuthor
+      let contentUserId = contentData.contentUserId
+      let contentUrl = contentData.contentUrl
+      let contentCommentary = contentData.contentCommentary
+      let contentTime = contentData.contentTime
+      let contentDisplayName = contentData.contentDisplayName
       renderContent(contentUrl, contentTitle, contentAuthor, contentTime, contentUserId, contentDisplayName, contentCommentary)
     }
 

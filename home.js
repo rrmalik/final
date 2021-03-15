@@ -48,19 +48,21 @@ firebase.auth().onAuthStateChanged(async function(user) {
     })
 
     // Pull all user's groupIds when pages is loaded
-    let querySnapshotUser = await db.collection('user-group-mapping').where('userId', '==', userId).get()
-    let userGroups = querySnapshotUser.docs
-      //grab user's groupIds
-    for (let i=0; i<userGroups.length; i++) {
-      let userGroupId = userGroups[i].id
-      let userGroupData = userGroups[i].data()
-      let userGroupIds = userGroupData.groupId 
+    let responseUserGroups = await fetch(`/.netlify/functions/get_user_group_mapping?userid=${userId}`)
+    let userGroupSnapshot = await responseUserGroups.json()
+      
+    //grab user's groupIds
+    for (let i=0; i<userGroupSnapshot.length; i++) {
+      let userGroupId = userGroupSnapshot[i].id
+      let userGroupIds = userGroupSnapshot[i].userGroupIds 
+      
       //grab group information
-      let querySnapshot = await db.collection('groups').doc(userGroupIds).get()
-      let groupData = querySnapshot.data()
-      let groupName = groupData.groupname
-      let groupImageUrl = groupData.imageUrl
-      let groupId = userGroupIds
+      let responseGroupInfo = await fetch(`/.netlify/functions/get_groups?groupid=${userGroupIds}`)
+      let groupSnapshot = await responseGroupInfo.json()
+      let groupSnapshotData = groupSnapshot[0]
+      let groupName = groupSnapshotData.groupName
+      let groupImageUrl = groupSnapshotData.groupImageUrl
+      let groupId = groupSnapshotData.groupId
 
       //render groups
       renderUserGroups(groupId, groupName, groupImageUrl)
@@ -105,11 +107,9 @@ firebase.auth().onAuthStateChanged(async function(user) {
     event.preventDefault()
     let groupName = document.querySelector('#groupName').value
        // Grab random image from firebase to assign to group avatar
-          let imageSnapshot = await db.collection('images').get()
-          let images = imageSnapshot.docs
-          imageData = images[getRandomInt(0,images.length)].data()
-          imageImageUrl = imageData.imageURL
-          // console.log(imageImageUrl)
+          let responseImages = await fetch(`/.netlify/functions/get_images`)
+          let imageSnapshot = await responseImages.json()
+          let imageImageUrl = imageSnapshot[0].imageImageUrl
       // drop group information into firebase "group" collection
     let docRef = await db.collection('groups').add({ 
       groupname: groupName, 
