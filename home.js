@@ -132,7 +132,7 @@ firebase.auth().onAuthStateChanged(async function(user) {
           newGroupId: newGroupId, 
           userId: userId, 
           groupName: groupName,
-          firstName: firstName,
+          firstName: firstName
         })
       })
     // let docRefMapping = await db.collection('user-group-mapping').add({ 
